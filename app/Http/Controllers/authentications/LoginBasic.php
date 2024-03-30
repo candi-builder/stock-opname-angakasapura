@@ -11,4 +11,5 @@ class LoginBasic extends Controller
   {
     return view('content.authentications.auth-login-basic');
   }
+  
 }

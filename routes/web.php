@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
@@ -63,7 +64,7 @@ Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index
 
 // authentication
 Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
+Route::get('/daftarkan-user', [auth::class, 'index'])->name('daftarkan-user');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 
 // cards
@@ -107,3 +108,9 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
+
+
+//user
+Route::get('/user/list',[auth::class, 'index'])->name("get-list-user");
+Route::get('/user/tambah-user',[auth::class, 'formDaftarUser'])->name("add-new-user");
+Route::post('/user/register',[auth::class, 'register'])->name("register");
