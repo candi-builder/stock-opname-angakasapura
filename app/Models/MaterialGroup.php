@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MaterialGroup extends Model
 {
     use HasFactory;
-    protected $table = "material_group";
+    protected $table = "material_groups";
 
     protected $fillable = [
         'name'

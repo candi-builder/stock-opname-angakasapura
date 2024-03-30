@@ -9,7 +9,7 @@ class Uom extends Model
 {
     use HasFactory;
 
-    protected $table = "uom";
+    protected $table = "uoms";
 
     protected $fillable = [
         'name'
