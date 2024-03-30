@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class MasterData extends Model
 {
     use HasFactory;
+    protected $table = "master_data";
+
+    protected $fillable = [
+        'no_article',
+        'material_group',
+        'description',
+        'uom'
+    ];
 }
