@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->integer('station');
             $table->integer('region');
-            $table->string('role');
+            $table->enum('role', ['user', 'superadmin'])->default('user');
             $table->timestamps();
         });
     }

@@ -15,7 +15,12 @@
 
 <!-- Responsive Table -->
 <div class="card">
-  <h5 class="card-header">Responsive Table</h5>
+  <div class="card-header d-flex justify-content-between">
+    <h5 class="">List User</h5>
+    <a href="{{route('add-new-user')}}">
+      <button class="btn btn-primary">Tambah User</button>
+    </a>
+  </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
       <thead>
@@ -24,6 +29,7 @@
           <th>username</th>
           <th>station</th>
           <th>region</th>
+          <th>action</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -33,6 +39,11 @@
           <td>{{ $user->username}}</td>
           <td>{{ $user->station}}</td>
           <td>{{ $user->region}}</td>
+          <td>
+            <a class="btn btn-success" href="{{route('change-password',$user->id)}}">
+            Ganti Password
+            </a>
+          </td>
         </tr>
         @endforeach
     

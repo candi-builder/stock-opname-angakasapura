@@ -46,7 +46,7 @@ use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
 // Main Page Route
-Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+Route::get('/', [Analytics::class, 'index'])->name('dashboard');
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
@@ -114,3 +114,8 @@ Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic')
 Route::get('/user/list',[auth::class, 'index'])->name("get-list-user");
 Route::get('/user/tambah-user',[auth::class, 'formDaftarUser'])->name("add-new-user");
 Route::post('/user/register',[auth::class, 'register'])->name("register");
+Route::get('/user/login',[auth::class, 'formLogin'])->name("login");
+Route::post('/user/process-login',[auth::class, 'processLogin'])->name("process-login");
+Route::get('/user/forgot-password',[auth::class, 'forgotPW'])->name("forgot-password");
+Route::post('/user/delete',[auth::class, 'register'])->name("delet-user");
+Route::get('/user/ganti-password',[auth::class, 'register'])->name("change-password");
