@@ -11,10 +11,11 @@ class auth extends Controller
 {
     public function index()
     {
-        $stations = Station::get();
-        $regions = Region::get();
-
-        return view('content.user.list', compact('stations','regions'));
+        $users = User::join('stations','users.station', '=' ,'stations.id')
+        ->join('regions','users.region','=','regions.id')
+        ->select('users.username','users.id','stations.name as station','regions.name as region')
+        ->get();
+        return view('content.user.list', compact('users'))->with('i');
     }
     public function formDaftarUser()
     {
