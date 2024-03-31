@@ -146,4 +146,19 @@ class auth extends Controller
 
         }
     }
+
+    public function resetPw(Request $request,$id){
+        
+
+        try {
+            $changePw = User::findOrFail($id);
+            $changePw->update([
+                'password' => $changePw->username,
+            ]);
+            return redirect()->route('get-list-user')->with('success', 'password di reset menjadi '.$changePw->username);
+        } catch (\Exception $e) {
+            return redirect()->route('get-list-user')->with('error', 'terjadi kesalahan');
+
+        }
+    }
 }

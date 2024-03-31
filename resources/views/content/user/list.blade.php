@@ -17,6 +17,17 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between">
     <h5 class="">List User</h5>
+    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
     <a href="{{route('add-new-user')}}">
       <button class="btn btn-primary">Tambah User</button>
     </a>
@@ -40,9 +51,12 @@
           <td>{{ $user->station}}</td>
           <td>{{ $user->region}}</td>
           <td>
-            <a class="btn btn-success" href="{{route('change-password',$user->id)}}">
-            Ganti Password
-            </a>
+          <form method="POST" action="{{ route('reset-pw', $user->id) }}">
+              @csrf
+              @method('POST')
+              <button type="submit" class="btn btn-success">Reset Password</button>
+          </form>
+
           </td>
         </tr>
         @endforeach

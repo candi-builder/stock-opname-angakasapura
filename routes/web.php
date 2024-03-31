@@ -17,4 +17,5 @@ Route::post('/user/process-login', [auth::class, 'processLogin'])->name("process
 Route::get('/user/forgot-password', [auth::class, 'forgotPW'])->name("forgot-password");
 Route::get('/user/change-password', [auth::class, 'formChangePassword'])->name("change-password");
 Route::post('/user/process-changepw', [auth::class, 'changePw'])->name("process-changepw");
-Route::post('/user/delete', [auth::class, 'register'])->name("delete-user");
+Route::post('/user/delete/{id}', [auth::class, 'register'])->name("delete-user");
+Route::post('/user/reset-pw/{id}', [auth::class, 'resetPw'])->name("reset-pw");
