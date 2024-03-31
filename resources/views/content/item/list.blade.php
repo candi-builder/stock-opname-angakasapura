@@ -28,7 +28,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-    <a href="{{route('add-new-user')}}">
+    <a href="{{route('add-item')}}">
       <button class="btn btn-primary">Tambah Item</button>
     </a>
   </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\MasterData;
+use App\Models\MaterialGroup;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class MasterDataController extends Controller
@@ -18,5 +20,11 @@ class MasterDataController extends Controller
         return view('content.item.list', compact('dataItems'))
         ->with('i');
 
+    }
+
+    public function formAdd(){
+        $mg = MaterialGroup::get();
+        $uoms = Uom::get();
+        return view('content.item.form-add',compact('mg','uoms'));
     }
 }
