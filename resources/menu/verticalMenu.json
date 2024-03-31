@@ -14,9 +14,9 @@
       
       "submenu": [
         {
-          "url": "/",
+          "url": "/item/list",
           "name": "item",
-          "slug": "dashboard-analytics"
+          "slug": "get-list-item"
         },
         {
           "url": "/",
