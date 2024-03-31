@@ -161,4 +161,19 @@ class auth extends Controller
 
         }
     }
+
+    public function deleteUser(Request $request,$id){
+        try {
+            $deleted = User::destroy($id);
+        
+            if ($deleted) {
+                return redirect()->route('get-list-user')->with('success', 'Berhasil menghapus user');
+            } else {
+                return redirect()->route('get-list-user')->with('error', 'Gagal menghapus user');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('get-list-user')->with('error', 'terjadi kesalahan');
+
+        }
+    }
 }

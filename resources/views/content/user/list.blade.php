@@ -50,13 +50,17 @@
           <td>{{ $user->username}}</td>
           <td>{{ $user->station}}</td>
           <td>{{ $user->region}}</td>
-          <td>
+          <td class="d-flex gap-2">
           <form method="POST" action="{{ route('reset-pw', $user->id) }}">
               @csrf
               @method('POST')
               <button type="submit" class="btn btn-success">Reset Password</button>
           </form>
-
+          <form method="POST" action="{{ route('delete-user', $user->id) }}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Hapus User</button>
+          </form>
           </td>
         </tr>
         @endforeach
