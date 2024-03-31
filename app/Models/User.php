@@ -18,6 +18,7 @@ class User extends Authenticatable
         'username',
         'password',
         'station',
-        'region'
+        'region',
+        'role',
     ];
 }
