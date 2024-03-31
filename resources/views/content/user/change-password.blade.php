@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/blankLayout')
 
 @section('title', 'Tambah User - Pages')
 
@@ -15,7 +15,7 @@
   <!-- Logo -->
 
 <!-- /Logo -->
-<h4 class="mb-2">Tambah User Baru 🚀</h4>
+<h4 class="mb-2">Buat Password Baru 🚀</h4>
 @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -27,7 +27,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-<form id="formAuthentication" class="mb-3" action="{{route('register')}}" method="POST">
+<form id="formAuthentication" class="mb-3" action="{{route('process-changepw')}}" method="POST">
 @csrf
 <div class="mb-3 form-password-toggle">
   <label class="form-label" for="password">Password</label>
@@ -49,14 +49,20 @@
       aria-describedby="password" />
     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
   </div>
-  @error('confirm')
+  @error('confirmpw')
     <div class="text-danger">{{ $message }}</div>
   @enderror
 </div>
 
-<button  type="submit" class="btn btn-primary d-grid w-100">
+<div class="d-flex gap-2">
+<a href="{{route('dashboard')}}"  class="btn btn-outline-danger d-grid w-100">
+  batal 
+</a>
+<button type="submit" class="btn btn-primary d-grid w-100">
   Ganti Password 
 </button>
+
+</div>
 </form>
 </div>
 </div>

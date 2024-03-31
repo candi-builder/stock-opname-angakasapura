@@ -26,7 +26,7 @@ class auth extends Controller
 
         return view('content.user.form-add', compact('stations', 'regions'));
     }
-    public function formGantiPssword()
+    public function formChangePassword()
     {
         return view('content.user.change-password');
     }
@@ -67,7 +67,7 @@ class auth extends Controller
             ]);
 
             $register->save();
-
+            
             return redirect()->route('get-list-user')->with('success', 'User berhasil ditambahkan.');
         } catch (\Exception $e) {
             return redirect()->route('add-new-user')->with('error', 'Gagal menambahkan user.');
@@ -117,5 +117,33 @@ class auth extends Controller
     public function forgotPW()
     {
         return redirect()->route('login')->with('error', 'hubungi admin untuk merubah password');
+    }
+
+    public function changePw(Request $request){
+        
+        $password = $request->input('password');
+        $request->validate(
+            [
+                'password' => 'required',
+                'confirmpw' => 'required|same:password',
+            ],
+            [
+                'password.required' => 'password baru harus diisi.',
+                'confirmpw.required' => 'konfirmasi password harus diisi.',
+                'confirmpw.same' => 'Konfirmasi password harus sama dengan password baru.',
+            ]
+        );
+
+        try {
+            $username = Session::get('userSession')->username;
+            $changePw = User::where('username',$username)->first();
+            $changePw->update([
+                'password' => $password,
+            ]);
+            return redirect()->route('change-password')->with('success', 'berhasil mengubah password');
+        } catch (\Exception $e) {
+            return redirect()->route('change-password')->with('error', 'terjadi kesalahan');
+
+        }
     }
 }

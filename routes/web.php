@@ -117,5 +117,6 @@ Route::post('/user/register',[auth::class, 'register'])->name("register");
 Route::get('/user/login',[auth::class, 'formLogin'])->name("login");
 Route::post('/user/process-login',[auth::class, 'processLogin'])->name("process-login");
 Route::get('/user/forgot-password',[auth::class, 'forgotPW'])->name("forgot-password");
-Route::post('/user/delete',[auth::class, 'register'])->name("delet-user");
-Route::get('/user/ganti-password',[auth::class, 'register'])->name("change-password");
+Route::get('/user/change-password',[auth::class, 'formChangePassword'])->name("change-password");
+Route::post('/user/process-changepw',[auth::class, 'changePw'])->name("process-changepw");
+Route::post('/user/delete',[auth::class, 'register'])->name("delete-user");
