@@ -1,10 +1,10 @@
 {
   "menu": [
     {
-      "url": "/",
+      "url": "/report/list",
       "name": "Buat Report",
       "icon":"menu-icon tf-icons bx bx-bar-chart-alt-2",
-      "slug": "buat-report"
+      "slug": "get-list-report"
     },
     {
       "url": "/",

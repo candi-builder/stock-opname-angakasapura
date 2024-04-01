@@ -27,25 +27,10 @@
               {{ session('error') }}
           </div>
       @endif
-        <form action="{{route('process-add-item')}}" method="POST" >
+        <form action="{{route('process-add-report')}}" method="POST" >
         @csrf
           <div class="mb-3">
-            <label class="form-label" for="no_article">no article</label>
-            <input type="text" class="form-control" name="no_article" placeholder="ACSS" value="ACSS" />
-            @error('no_article')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="description">new description</label>
-            <input type="text" class="form-control" name="description" placeholder="nama item" />
-            @error('description')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
-         
-          <div class="mb-3">
-            <label  class="form-label" for="basic-default-fullname">Station</label>
+            <label  class="form-label" for="basic-default-fullname">Item</label>
             <select  class="form-control selectdua" name="item">
             <option disabled value="-">Item</option>
               @foreach($md as $item)
@@ -53,9 +38,18 @@
               @endforeach
             </select>
             @error('uom')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
+              <div class="text-danger">{{ $message }}</div>
+            @enderror
           </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">jumlah</label>
+            <input type="number" class="form-control" name="jumlah" placeholder="nama item" />
+            @error('jumlah')
+             <div class="text-danger">{{ $message }}</div>
+           @enderror
+          </div>
+         
+          
           <!-- <a href="{{route('get-list-item')}}" class="btn btn-outline-primary">Batal</a> -->
           <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
@@ -91,7 +85,7 @@
             <th>new description</th>
             <th>UOM</th>
             <th>tanggal pelaporan</th>
-            <th>total</th>
+            <th>jumlah</th>
             <th>reporter</th>
             <th>station</th>
             <th>region</th>
@@ -107,11 +101,11 @@
             <td>{{ $report->description}}</td>
             <td>{{ $report->uomname}}</td>
             <td>{{ $report->reporting_date}}</td>
-            <td>{{ $report->total}}</td>
+            <td>{{ $report->jumlah}}</td>
             <td>{{ $report->username}}</td>
             <td>{{ $stationUser->name}}</td>
             <td>{{ $regionUser->name}}</td>
-            <td class="d-flex gap-2">
+            <td>
 
             <form method="POST" action="{{ route('delete-report', $report->id) }}">
                 @csrf

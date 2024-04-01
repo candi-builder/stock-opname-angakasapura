@@ -98,14 +98,14 @@ class auth extends Controller
         try {
             $login = User::where('users.username', '=', $username)->first();
             if ($login == null) {
-                $userSession = new UserSession(false, '', '', 0, 0);
+                $userSession = new UserSession(0,false, '', '', 0, 0);
                 return redirect()->route('login')->with('error', 'username belum terdaaftar,hubungi admin untuk mendaftar');
             }
             if ($password != $login->password) {
-                $userSession = new UserSession(false, '', '', 0, 0);
+                $userSession = new UserSession(0,false, '', '', 0, 0);
                 return redirect()->route('login')->with('error', 'password yang anda masukan salah');
             }
-            $userSession = new UserSession(true, $login->username, $login->role, $login->station, $login->region);
+            $userSession = new UserSession($login->id,true, $login->username, $login->role, $login->station, $login->region);
             Session::put('userSession', $userSession);
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
@@ -174,5 +174,11 @@ class auth extends Controller
             return redirect()->route('get-list-user')->with('error', 'terjadi kesalahan');
 
         }
+    }
+
+    public function logout()
+    {
+        Session::forget('userSession');
+        return redirect()->route('login');
     }
 }

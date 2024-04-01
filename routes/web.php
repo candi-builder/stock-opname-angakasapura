@@ -15,6 +15,7 @@ Route::get('/user/list', [auth::class, 'index'])->name("get-list-user");
 Route::get('/user/tambah-user', [auth::class, 'formDaftarUser'])->name("add-new-user");
 Route::post('/user/register', [auth::class, 'register'])->name("register");
 Route::get('/user/login', [auth::class, 'formLogin'])->name("login");
+Route::get('/user/logout', [auth::class, 'logout'])->name("logout");
 Route::post('/user/process-login', [auth::class, 'processLogin'])->name("process-login");
 Route::get('/user/forgot-password', [auth::class, 'forgotPW'])->name("forgot-password");
 Route::get('/user/change-password', [auth::class, 'formChangePassword'])->name("change-password");

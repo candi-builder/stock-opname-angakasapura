@@ -1,5 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
+@php
+      $isAdmin = session('userSession')->isLogin;
+      $menuToShow = $isAdmin ?  array_slice($menuData[0]->menu, 1,3) : array_slice($menuData[0]->menu, 0, 1);
+    @endphp
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
     <a href="{{url('/')}}" class="app-brand-link">
@@ -16,7 +19,7 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
-    @foreach ($menuData[0]->menu as $menu)
+    @foreach ($menuToShow as $menu)
 
     {{-- adding active and open class if child is active --}}
 
