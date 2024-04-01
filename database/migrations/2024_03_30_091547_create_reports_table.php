@@ -17,9 +17,7 @@ return new class extends Migration
             $table->string('reporter');
             $table->date('reporting_date');
             $table->year('reporting_year');
-            $table->integer('ending_stock');
-            $table->integer('opening_stock');
-            $table->string('name');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

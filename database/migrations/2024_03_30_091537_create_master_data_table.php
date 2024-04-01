@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('material_group');
             $table->string('description');
             $table->integer('uom');
+            $table->integer('ending_stock')->nullable();
+            $table->integer('opening_stock')->nullable();
             $table->timestamps();
         });
     }

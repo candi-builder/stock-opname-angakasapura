@@ -16,8 +16,7 @@ class Report extends Model
         'reporter',
         'reporting_date',
         'reporting_year',
-        'ending_stock',
-        'opening_stock',
+        'jumlah',
     ];
 
 }
