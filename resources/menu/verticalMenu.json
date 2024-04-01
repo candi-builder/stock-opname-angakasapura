@@ -2,15 +2,21 @@
   "menu": [
     {
       "url": "/",
+      "name": "Buat Report",
+      "icon":"menu-icon tf-icons bx bx-bar-chart-alt-2",
+      "slug": "buat-report"
+    },
+    {
+      "url": "/",
       "name": "Data Report",
       "icon":"menu-icon tf-icons bx bx-bar-chart-alt-2",
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/",
+      "url": "/item/list",
       "name": "Master Data",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard",
+      "slug": "get-list-item",
       
       "submenu": [
         {

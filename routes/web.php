@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth;
 use App\Http\Controllers\MasterDataController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 
@@ -28,3 +29,9 @@ Route::post('/item/process-add', [MasterDataController::class, 'processAdd'])->n
 Route::get('/item/edit/{id}', [MasterDataController::class, 'formEdit'])->name("edit-item");
 Route::post('/item/process-edit', [MasterDataController::class, 'processEdit'])->name("process-edit-item");
 Route::delete('/item/delete/{id}', [MasterDataController::class, 'processDelete'])->name("delete-item");
+
+//report
+Route::get('/report/list', [ReportController::class, 'index'])->name("get-list-report");
+Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
+Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
+Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");

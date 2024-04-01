@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->integer('master_data');
-            $table->string('reporter');
+            $table->integer('reporter');
             $table->date('reporting_date');
             $table->year('reporting_year');
             $table->integer('jumlah');

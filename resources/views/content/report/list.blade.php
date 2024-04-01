@@ -4,7 +4,7 @@
 
   @section('content')
   <h4 class="py-3 mb-4">
-    <span class="text-muted fw-light">Master Data /</span> Item
+    <span class="text-muted fw-light">Buat Report
   </h4>
 
   <!-- Basic Bootstrap Table -->
@@ -13,7 +13,7 @@
 
   <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Tambah Item</h5> <small class="text-muted float-end">item</small>
+        <h5 class="mb-0">Catat Stock</h5> <small class="text-muted float-end">item</small>
       </div>
 
       <div class="card-body">
@@ -43,24 +43,13 @@
             <div class="text-danger">{{ $message }}</div>
   @enderror
           </div>
-          <div class="mb-3">
-            <label  class="form-label" for="mg">Material Group</label>
-            <select  class="form-control selectdua" name="mg">
-            <option disabled value="-">Pilih Material Group</option>
-              @foreach($mg as $item)
-              <option value="{{$item->id}}">{{$item->name}}</option>
-              @endforeach
-            </select>
-            @error('mg')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
+         
           <div class="mb-3">
             <label  class="form-label" for="basic-default-fullname">Station</label>
-            <select  class="form-control selectdua" name="uom">
-            <option disabled value="-">Pilih UOM</option>
-              @foreach($uoms as $uom)
-              <option value="{{$uom->id}}">{{$uom->name}}</option>
+            <select  class="form-control selectdua" name="item">
+            <option disabled value="-">Item</option>
+              @foreach($md as $item)
+              <option value="{{$item->id}}">{{$item->no_article}} - {{$item->description}}</option>
               @endforeach
             </select>
             @error('uom')
@@ -101,21 +90,30 @@
             <th>material group</th>
             <th>new description</th>
             <th>UOM</th>
+            <th>tanggal pelaporan</th>
+            <th>total</th>
+            <th>reporter</th>
+            <th>station</th>
+            <th>region</th>
+            <th>aksi</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-          @foreach($dataItems as $item)
+          @foreach($dataReport as $report)
           <tr>
             <td>{{ ++$i}}</td>
-            <td>{{ $item->no_article}}</td>
-            <td>{{ $item->mgname}}</td>
-            <td>{{ $item->description}}</td>
-            <td>{{ $item->uom_name}}</td>
+            <td>{{ $report->no_article}}</td>
+            <td>{{ $report->mgname}}</td>
+            <td>{{ $report->description}}</td>
+            <td>{{ $report->uomname}}</td>
+            <td>{{ $report->reporting_date}}</td>
+            <td>{{ $report->total}}</td>
+            <td>{{ $report->username}}</td>
+            <td>{{ $stationUser->name}}</td>
+            <td>{{ $regionUser->name}}</td>
             <td class="d-flex gap-2">
-            <a href="{{ route('edit-item', $item->no_article) }}">
-                <button type="submit" class="btn btn-success">Ubah</button>
-            </a>
-            <form method="POST" action="{{ route('delete-item', $item->id) }}">
+
+            <form method="POST" action="{{ route('delete-report', $report->id) }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-outline-danger">Hapus</button>
@@ -128,7 +126,7 @@
       </table>
         <!-- Pagination -->
         <div class="d-flex justify-content-center">
-      {{ $dataItems->onEachSide(1)->links('pagination::bootstrap-5') }}
+      {{ $dataReport->onEachSide(1)->links('pagination::bootstrap-5') }}
   </div>
 
     </div>

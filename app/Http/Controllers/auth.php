@@ -109,7 +109,6 @@ class auth extends Controller
             Session::put('userSession', $userSession);
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->route('login')->with('error', 'Terjadi Kesalahan.');
         }
     }

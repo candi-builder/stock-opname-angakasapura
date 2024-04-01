@@ -16,7 +16,7 @@ class MasterDataController extends Controller
         $dataItems = MasterData::join('material_groups as mg', 'master_data.material_group', '=', 'mg.id')
             ->join('uoms', 'master_data.uom', '=', 'uoms.id')
             ->select('master_data.*', 'uoms.name as uom_name', 'mg.name as mgname')
-            ->paginate(5);
+            ->paginate(25);
             $mg = MaterialGroup::get();
             $uoms = Uom::get();
         return view('content.item.list', compact('dataItems','mg','uoms'))
