@@ -87,9 +87,10 @@
                               {{ session('error') }}
                           </div>
                       @endif
-      <a href="{{route('add-item')}}">
+      <!-- <a href="{{route('add-item')}}">
         <button class="btn btn-primary">Tambah Item</button>
-      </a>
+      </a> -->
+      <div></div>
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">

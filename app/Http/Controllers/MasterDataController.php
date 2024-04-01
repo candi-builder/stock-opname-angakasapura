@@ -105,7 +105,6 @@ class MasterDataController extends Controller
             return redirect()->route('get-list-item')->with('success', 'Berhasil Memperbarui item baru');
 
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->route('edit-item')->with('error', 'terjadi kesalahan');
         }
     }
