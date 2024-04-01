@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MasterData extends Model
 {
     use HasFactory;
-    protected $table = "master_datas";
+    protected $table = "master_data";
 
     protected $fillable = [
         'no_article',

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('master_data', function (Blueprint $table) {
             $table->id();
-            $table->string('no_article');
+            $table->string('no_article')->unique();
             $table->integer('material_group');
             $table->string('description');
             $table->integer('uom');
