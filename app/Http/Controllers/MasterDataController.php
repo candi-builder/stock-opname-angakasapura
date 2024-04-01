@@ -17,7 +17,9 @@ class MasterDataController extends Controller
             ->join('uoms', 'master_data.uom', '=', 'uoms.id')
             ->select('master_data.*', 'uoms.name as uom_name', 'mg.name as mgname')
             ->paginate(5);
-        return view('content.item.list', compact('dataItems'))
+            $mg = MaterialGroup::get();
+            $uoms = Uom::get();
+        return view('content.item.list', compact('dataItems','mg','uoms'))
             ->with('i');
         
     }
@@ -54,10 +56,10 @@ class MasterDataController extends Controller
                 'uom' => $request->input('uom'),
             ]);
             $item->save();
-            return redirect()->route('add-item')->with('success', 'Berhasil Menambah item baru');
+            return redirect()->route('get-list-item')->with('success', 'Berhasil Menambah item baru');
 
         } catch (\Exception $e) {
-            return redirect()->route('add-item')->with('error', 'terjadi kesalahan');
+            return redirect()->route('get-list  -item')->with('error', 'terjadi kesalahan');
         }
     }
 
@@ -100,11 +102,26 @@ class MasterDataController extends Controller
                 'material_group' => $request->input('mg'),
                 'uom' => $request->input('uom'),
             ]);
-            return redirect()->route('edit-item')->with('success', 'Berhasil Memperbarui item baru');
+            return redirect()->route('get-list-item')->with('success', 'Berhasil Memperbarui item baru');
 
         } catch (\Exception $e) {
             dd($e);
             return redirect()->route('edit-item')->with('error', 'terjadi kesalahan');
+        }
+    }
+
+    public function processDelete(Request $request,$id){
+        try {
+            $deleted = MasterData::destroy($id);
+        
+            if ($deleted) {
+                return redirect()->route('get-list-item')->with('success', 'Berhasil menghapus item');
+            } else {
+                return redirect()->route('get-list-item')->with('error', 'Gagal menghapus item');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('get-list-item')->with('error', 'terjadi kesalahan');
+
         }
     }
 }

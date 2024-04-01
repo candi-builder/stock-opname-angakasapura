@@ -27,4 +27,4 @@ Route::get('/item/add', [MasterDataController::class, 'formAdd'])->name("add-ite
 Route::post('/item/process-add', [MasterDataController::class, 'processAdd'])->name("process-add-item");
 Route::get('/item/edit/{id}', [MasterDataController::class, 'formEdit'])->name("edit-item");
 Route::post('/item/process-edit', [MasterDataController::class, 'processEdit'])->name("process-edit-item");
-Route::get('/item/delete/{id}', [MasterDataController::class, 'processDelete'])->name("delete-item");
+Route::delete('/item/delete/{id}', [MasterDataController::class, 'processDelete'])->name("delete-item");
