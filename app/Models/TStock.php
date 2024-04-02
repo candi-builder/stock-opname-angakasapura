@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Stock extends Model
+class TStock extends Model
 {
     use HasFactory;
-    protected $table = 'stocs';
+
+    protected $table = "t_stocs";
+
     protected $fillable = [
-        'master_data',
+        'item_id',
+        'tanggal',
         'stock',
     ];
 }

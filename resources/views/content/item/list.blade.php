@@ -10,7 +10,7 @@
   <!-- Basic Bootstrap Table -->
 
   <!--/ Table within card -->
-
+   @if(session('userSession')->role == 'superadmin')
   <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Tambah Item</h5> <small class="text-muted float-end">item</small>
@@ -72,6 +72,7 @@
         </form>
       </div>
     </div>
+    @endif
   <!-- Responsive Table -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
@@ -111,6 +112,7 @@
             <td>{{ $item->mgname}}</td>
             <td>{{ $item->description}}</td>
             <td>{{ $item->uom_name}}</td>
+            @if(session('userSession')->role == 'superadmin')
             <td class="d-flex gap-2">
             <a href="{{ route('edit-item', $item->no_article) }}">
                 <button type="submit" class="btn btn-success">Ubah</button>
@@ -121,6 +123,7 @@
                 <button type="submit" class="btn btn-outline-danger">Hapus</button>
             </form>
             </td>
+            @endif
           </tr>
           @endforeach
       

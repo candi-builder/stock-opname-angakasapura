@@ -33,6 +33,7 @@ Route::delete('/item/delete/{id}', [MasterDataController::class, 'processDelete'
 
 //report
 Route::get('/report/list', [ReportController::class, 'index'])->name("get-list-report");
+Route::get('/report/admin', [ReportController::class, 'showReportAdmin'])->name("get-list-report-admin");
 Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
 Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
 Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");

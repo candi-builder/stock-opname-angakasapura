@@ -1,7 +1,9 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 @php
-      $isAdmin = session('userSession')->isLogin;
-      $menuToShow = $isAdmin ?  array_slice($menuData[0]->menu, 1,3) : array_slice($menuData[0]->menu, 0, 1);
+      $isAdmin = session('userSession')->role;
+      $menuToShow = $isAdmin == 'superadmin' ?  array_slice($menuData[0]->menu, 1,3) : array_filter($menuData[0]->menu, function($item) {
+    return $item->slug === 'get-list-report' || $item->slug === 'get-list-item';
+});
     @endphp
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
