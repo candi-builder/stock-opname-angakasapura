@@ -1,10 +1,10 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'data stock')
 
 @section('content')
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Buat Report
+  <span class="text-muted fw-light">Data Stock
 </h4>
 
 <!-- Basic Bootstrap Table -->

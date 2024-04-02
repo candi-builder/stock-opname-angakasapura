@@ -68,30 +68,39 @@ class ReportController extends Controller
         $currentDate = Carbon::now();
         $currentYear = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)->year;
         try {
-            DB::beginTransaction();
-            $existingItem = Report::where('master_data', $request->input('item'))
-                ->where('reporting_date', $currentDate->toDateString())
-                ->where('reporter', $userSession->id)
-                ->first();
+
             $existingStock = Stock::where('master_data', $request->input('item'))->first();
-            $existingTStock = TStock::where('item_id', $existingStock->id)
-                ->where('tanggal', $currentDate->toDateString());
 
             $isAdmin = $userSession->role;
             if ($isAdmin == 'superadmin') {
                 return redirect()->route('login')->with('error', 'admin tidak boleh membuat report.');
             }
             if ($existingStock) {
+
+                $existingTStock = TStock::where('item_id', $existingStock->id)
+                    ->where('tanggal', $currentDate->toDateString())
+                    ->first();
                 if ($existingTStock) {
+
+                    $existingItem = Report::where('master_data', $request->input('item'))
+                        ->where('reporting_date', $currentDate->toDateString())
+                        ->where('reporter', $userSession->id)
+                        ->first();
                     if ($existingItem) {
+                        DB::beginTransaction();
+
                         $existingStock->stock += $request->input('jumlah');
-                        $existingStock->save();
                         $existingTStock->stock += $request->input('jumlah');
-                        $existingTStock->save();
                         $existingItem->jumlah += $request->input('jumlah');
+                        $existingStock->save();
+                        $existingTStock->save();
                         $existingItem->save();
+                        DB::commit();
+
                         return redirect()->route('get-list-report')->with('success', 'Jumlah item berhasil diperbarui.');
                     }
+                    DB::beginTransaction();
+
                     $item = new Report([
                         'master_data' => $request->input('item'),
                         'reporter' => $userSession->id,
@@ -104,10 +113,15 @@ class ReportController extends Controller
                     $existingTStock->stock += $request->input('jumlah');
                     $existingTStock->save();
                     $item->save();
+                    DB::commit();
+                    return redirect()->route('get-list-report')->with('success', 'Jumlah item berhasil diperbarui.');
+
 
                 }
+                DB::beginTransaction();
+
                 $tstock = new TStock([
-                    'item_id' => $request->input('item'),
+                    'item_id' => $existingStock->id,
                     'tanggal' => $currentDate->toDateString(),
                     'stock' => $request->input('jumlah'),
                 ]);
@@ -122,16 +136,19 @@ class ReportController extends Controller
                 $existingStock->save();
                 $tstock->save();
                 $item->save();
-                
+                DB::commit();
+
                 return redirect()->route('get-list-report')->with('success', 'Berhasil merubah stock');
             }
+            DB::beginTransaction();
 
             $stock = new Stock([
                 'master_data' => $request->input('item'),
                 'stock' => $request->input('jumlah'),
             ]);
+            $stock->save();
             $tstock = new TStock([
-                'item_id' => $request->input('item'),
+                'item_id' => $stock->id,
                 'tanggal' => $currentDate->toDateString(),
                 'stock' => $request->input('jumlah'),
             ]);
@@ -142,7 +159,6 @@ class ReportController extends Controller
                 'reporting_year' => $currentYear,
                 'jumlah' => $request->input('jumlah'),
             ]);
-            $stock->save();
             $tstock->save();
             $item->save();
             DB::commit();

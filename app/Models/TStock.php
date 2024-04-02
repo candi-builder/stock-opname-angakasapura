@@ -9,7 +9,7 @@ class TStock extends Model
 {
     use HasFactory;
 
-    protected $table = "t_stocs";
+    protected $table = "t_stocks";
 
     protected $fillable = [
         'item_id',
