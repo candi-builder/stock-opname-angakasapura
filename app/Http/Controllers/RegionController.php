@@ -42,7 +42,7 @@ class RegionController extends Controller
   // menampilkan halaman edit data yang dipilih
   public function formEdit(Request $request, $id)
   {
-   $region = Region::where('name', $id)->first();
+   $region = Region::where('id', $id)->first();
    return view ('content.region.form-edit', compact('region'));
   }
 
@@ -67,7 +67,7 @@ class RegionController extends Controller
       ]);
       return redirect()->route('edit-region')->with('success','Berhasil mengubah data region');
       } catch (\Exception $e) {
-        return redirect()->route('edit-region')->with('error','terjadi kesalahan');
+        return redirect()->route('get-list-region')->with('error','terjadi kesalahan');
       }
 
   }
