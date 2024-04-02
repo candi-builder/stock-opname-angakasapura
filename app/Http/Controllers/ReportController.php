@@ -50,44 +50,103 @@ class ReportController extends Controller
 
     }
 
-    public function showHistoriStockToday(){
+    public function showHistoriStockToday()
+    {
         $userSession = Session::get('userSession');
-        $showDataStock = Stock::join('t_stocks as tstock','stocks.id','=','tstock.item_id')
-        ->join('master_data as md','stocks.master_data','=','md.id')
-        ->join('material_groups as mg','md.material_group','=','mg.id')
-        ->join('uoms','md.uom','=','uoms.id')
-        ->where('tanggal','=',$userSession->today)
-        ->select('stocks.*','md.no_article','md.description','mg.name','uoms.name','tstock.tanggal')
-        ->paginate(25)
+        $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
+            ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
+            ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
+            ->join('uoms', 'md.uom', '=', 'uoms.id')
+            ->where('tanggal', '=', $userSession->today)
+            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as umoname', 'tstock.tanggal')
+            ->paginate(25)
         ;
-        dd($showDataStock);
+        return view('content.stock.today', compact('showDataStock'))
+            ->with('i');
+        ;
     }
 
-    public function showHistoriStockMonthly(){
+    public function showHistoriStockMonthly()
+    {
+        $currentDate = Carbon::now();
+        $dateFormat = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate);
+        if (!Session::has('monthlyHistory')) {
+            Session::put('monthlyHistory', $dateFormat->month);
+            Session::put('annualHistory', $dateFormat->year);
+        }
         $month = Session::get('monthlyHistory');
         $year = Session::get('annualHistory');
-        $showDataStock = Stock::join('t_stocks as tstock','stocks.id','=','tstock.item_id')
-        ->join('master_data as md','stocks.master_data','=','md.id')
-        ->join('material_groups as mg','md.material_group','=','mg.id')
-        ->join('uoms','md.uom','=','uoms.id')
-        ->whereMonth('tanggal','=',$month)
-        ->whereYear('tanggal','=',$year)
-        ->select('stocks.*','md.no_article','md.description','mg.name','uoms.name','tstock.tanggal')
-        ->paginate(25)
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+        $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
+            ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
+            ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
+            ->join('uoms', 'md.uom', '=', 'uoms.id')
+            ->whereMonth('tanggal', '=', $month)
+            ->whereYear('tanggal', '=', $year)
+            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as umoname', 'tstock.tanggal')
+            ->paginate(25)
         ;
-        dd($showDataStock);
+        return view('content.stock.monthly', compact('showDataStock', 'bulan', 'year'))
+            ->with('i');
+
     }
-    public function showHistoriStockAnnual(){
+
+    public function filterData(Request $request)
+    {
+        $request->validate(
+            [
+                'month' => 'required',
+                'year' => 'required',
+            ],
+            [
+                'month' => 'pilih bulan sebelum mem filter',
+                'year' => 'pilih  tahun mem filter',
+            ]
+        );
+        $month = $request->input('month');
+        $year = $request->input('year');
+        if ($request->has('month') && $request->has('year') && $month != 0) {
+            $month = $request->input('month');
+            $year = $request->input('year');
+            Session::put('annualHistory', $year);
+            Session::put('monthlyHistory', $month);
+            return redirect()->route('stock-monthly');
+        }
+            $year = $request->input('year');
+            Session::put('annualHistory', $year);
+            return redirect()->route('stock-annual');
+    }
+    public function showHistoriStockAnnual()
+    {
+        $currentDate = Carbon::now();
+        $dateFormat = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate);
+        if (Session::has('annualHistory')) {
+            Session::put('monthlyHistory', $dateFormat->month);
+        }
         $year = Session::get('annualHistory');
-        $showDataStock = Stock::join('t_stocks as tstock','stocks.id','=','tstock.item_id')
-        ->join('master_data as md','stocks.master_data','=','md.id')
-        ->join('material_groups as mg','md.material_group','=','mg.id')
-        ->join('uoms','md.uom','=','uoms.id')
-        ->whereYear('tanggal','=',$year)
-        ->select('stocks.*','md.no_article','md.description','mg.name','uoms.name','tstock.tanggal')
-        ->paginate(25)
+        $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
+            ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
+            ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
+            ->join('uoms', 'md.uom', '=', 'uoms.id')
+            ->whereYear('tanggal', '=', $year)
+            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as uomname', 'tstock.tanggal')
+            ->paginate(25);
+        return view('content.stock.annual', compact('showDataStock','year'))
+            ->with('i');
         ;
-        dd($showDataStock);
     }
 
 

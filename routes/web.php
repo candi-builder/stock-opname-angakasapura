@@ -42,3 +42,4 @@ Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])
 Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockToday'])->name("stock-today");
 Route::get('/report/stock/monthly', [ReportController::class, 'showHistoriStockMonthly'])->name("stock-monthly");
 Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");
+Route::post('/filterData', [ReportController::class, 'filterData'])->name("filter-data-stock");
