@@ -50,6 +50,21 @@ class ReportController extends Controller
 
     }
 
+    public function showHistoriStockToday(){
+        $userSession = Session::get('userSession');
+        $showDataStock = Stock::join('t_stocks as tstock','stocks.id','=','tstock.item_id')
+        ->join('master_data as md','stocks.master_data','=','md.id')
+        ->join('material_groups as mg','md.material_group','=','mg.id')
+        ->join('uoms','md.uom','=','uoms.id')
+        ->where('tanggal','=',$userSession->today)
+        ->select('stocks.*','md.no_article','md.description','mg.name','uoms.name','tstock.tanggal')
+        ->paginate(25)
+        ;
+        dd($showDataStock);
+    }
+
+
+
     public function processAdd(Request $request)
     {
         $request->validate(

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Models\MasterData;
 use App\Models\MaterialGroup;
+use App\Models\Stock;
 use App\Models\Uom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterDataController extends Controller
 {
@@ -49,6 +51,7 @@ class MasterDataController extends Controller
             ]
         );
         try {
+            DB::beginTransaction();
             $item = new MasterData([
                 'no_article' => $request->input('no_article'),
                 'description' => $request->input('description'),
@@ -56,6 +59,11 @@ class MasterDataController extends Controller
                 'uom' => $request->input('uom'),
             ]);
             $item->save();
+            $stock = new Stock([
+                'master_data' => $item->id,
+                'stock' => 0,
+            ]);
+            $stock->save();
             return redirect()->route('get-list-item')->with('success', 'Berhasil Menambah item baru');
 
         } catch (\Exception $e) {

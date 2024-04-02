@@ -1,10 +1,10 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'data report')
+@section('title', 'data stock')
 
 @section('content')
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Data Report
+  <span class="text-muted fw-light">Data stock
 </h4>
 
 <!-- Basic Bootstrap Table -->
@@ -13,7 +13,7 @@
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
-    <h5 class="">histori report</h5>
+    <h5 class="">data stock tiap item</h5>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -51,7 +51,6 @@
           <td>{{ $report->no_article}}</td>
           <td>{{ $report->mgname}}</td>
           <td>{{ $report->description}}</td>
-          <td>{{ $report->uomname}}</td>
           <td>{{ $report->total_jumlah}}</td>
           <td>{{ $report->reporting_date}}</td>
 

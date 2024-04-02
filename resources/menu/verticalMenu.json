@@ -13,6 +13,30 @@
       "slug": "dashboard-analytics"
     },
     {
+      "url": "/",
+      "name": "Data Stock",
+      "icon": "menu-icon tf-icons bx bx-data",
+      "slug": "data-stock",
+      
+      "submenu": [
+        {
+          "url": "/report/stock/today",
+          "name": "hari ini",
+          "slug": "stock-today"
+        },
+        {
+          "url": "/report/stock/month",
+          "name": "bulanan",
+          "slug": "stock-month"
+        },
+        {
+          "url": "/report/stock/year",
+          "name": "tahunan",
+          "slug": "stock-year"
+        }
+      ]
+    },
+    {
       "url": "/item/list",
       "name": "Master Data",
       "icon": "menu-icon tf-icons bx bx-home-circle",

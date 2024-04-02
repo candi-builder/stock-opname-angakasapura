@@ -28,7 +28,7 @@
         @csrf
           <div class="mb-3">
             <label class="form-label" for="no_article">no article</label>
-            <input type="text" class="form-control" name="no_article" placeholder="ACSS" value="{{$dataItem->no_article}}" />
+            <input type="text" disabled class="form-control" name="no_article" placeholder="ACSS" value="{{$dataItem->no_article}}" />
             @error('no_article')
             <div class="text-danger">{{ $message }}</div>
   @enderror
