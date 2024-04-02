@@ -39,4 +39,6 @@ Route::post('/report/process-add', [ReportController::class, 'processAdd'])->nam
 Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");
 
 //stock
-Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockToday'])->name("stock-monthly");
+Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockToday'])->name("stock-today");
+Route::get('/report/stock/monthly', [ReportController::class, 'showHistoriStockMonthly'])->name("stock-monthly");
+Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");

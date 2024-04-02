@@ -25,14 +25,14 @@
           "slug": "stock-today"
         },
         {
-          "url": "/report/stock/month",
+          "url": "/report/stock/monthly",
           "name": "bulanan",
-          "slug": "stock-month"
+          "slug": "stock-monthly"
         },
         {
-          "url": "/report/stock/year",
+          "url": "/report/stock/annual",
           "name": "tahunan",
-          "slug": "stock-year"
+          "slug": "stock-annual"
         }
       ]
     },
