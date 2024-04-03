@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('t_stocks', function (Blueprint $table) {
             $table->id();
             $table->integer('item_id');
+            $table->integer('report_id');
             $table->date('tanggal');
             $table->integer('stock');
             $table->timestamps();

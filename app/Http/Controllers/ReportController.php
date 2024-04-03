@@ -58,7 +58,7 @@ class ReportController extends Controller
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
             ->where('tanggal', '=', $userSession->today)
-            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as umoname', 'tstock.tanggal')
+            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as umoname', 'tstock.tanggal','md.id as mdid')
             ->paginate(25)
         ;
         return view('content.stock.today', compact('showDataStock'))
@@ -137,13 +137,13 @@ class ReportController extends Controller
             Session::put('monthlyHistory', $dateFormat->month);
         }
         $year = Session::get('annualHistory');
-        $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
-            ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
-            ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
-            ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->whereYear('tanggal', '=', $year)
-            ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as uomname', 'tstock.tanggal')
-            ->paginate(25);
+            $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
+                ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
+                ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
+                ->join('uoms', 'md.uom', '=', 'uoms.id')
+                ->whereYear('tanggal', '=', $year)
+                ->select('stocks.*', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as uomname', 'tstock.tanggal')
+                ->paginate(25);
         return view('content.stock.annual', compact('showDataStock','year'))
             ->with('i');
         ;
@@ -271,5 +271,19 @@ class ReportController extends Controller
             return redirect()->route('get-list-report')->with('error', 'terjadi kesalahan');
         }
 
+    }
+
+    public function detailReportToday($id,$tanggal){
+            $detailStock = Report::join('master_data as md','reports.master_data','=','md.id')
+            ->join('users','reports.reporter','users.id')
+            ->join('stations','users.station','stations.id')
+            ->join('regions','users.region','regions.id')
+            ->select('users.username as asu','regions.name as region','stations.name as station','jumlah')
+            ->where('reports.master_data',$id)
+            ->where('reports.reporting_date',$tanggal)
+            ->paginate(25);
+            $itemname = MasterData::findOrFail($id)->first();
+            return view('content.stock.detail.today',compact('detailStock','tanggal','itemname'))
+            ->with('i');
     }
 }

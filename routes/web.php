@@ -43,3 +43,4 @@ Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockTod
 Route::get('/report/stock/monthly', [ReportController::class, 'showHistoriStockMonthly'])->name("stock-monthly");
 Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");
 Route::post('/filterData', [ReportController::class, 'filterData'])->name("filter-data-stock");
+Route::get('/stock/detail/today/{id}/{tanggal}', [ReportController::class, 'detailReportToday'])->name("detail-stock-today");

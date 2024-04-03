@@ -4,7 +4,7 @@
 
 @section('content')
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Data stock
+  <span class="text-muted fw-light">detail stock per user pada {{$tanggal}}
 </h4>
 
 <!-- Basic Bootstrap Table -->
@@ -13,7 +13,7 @@
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
-    <h5 class="">histori stock hari ini</h5>
+      <h5 class="">stock item {{$itemname->no_article}} - {{$itemname->description}}  </h5>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -35,29 +35,20 @@
       <thead>
         <tr class="text-nowrap">
           <th>No</th>
-          <th>no article</th>
-          <th>material group</th>
-          <th>new description</th>
-          <th>UOM</th>
-          <th>grand total</th>
-          <th>tanggal</th>
-          <th>aksi</th>
+          <th>reporter</th>
+          <th>station</th>
+          <th>region</th>
+          <th>jumlah yang dimasukan</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach($showDataStock as $stock)
+        @foreach($detailStock as $stock)
         <tr>
           <td>{{ ++$i}}</td>
-          <td>{{ $stock->no_article}}</td>
-          <td>{{ $stock->mgname}}</td>
-          <td>{{ $stock->description}}</td>
-          <td>{{ $stock->uomname}}</td>
-          <td>{{ $stock->stock}}</td>
-          <td>{{ $stock->tanggal}}</td>
-          <td>
-            <a href="{{ route('detail-stock-today', ['id' => $stock->mdid, 'tanggal' => $stock->tanggal]) }}">
-                <button type="submit" class="btn btn-info">Detail</button>
-            </a>
+          <td>{{ $stock->asu}}</td>
+          <td>{{ $stock->station}}</td>
+          <td>{{ $stock->region}}</td>
+          <td>{{ $stock->jumlah}}</td>
           </td>
         </tr>
         @endforeach
@@ -66,7 +57,7 @@
     </table>
       <!-- Pagination -->
       <div class="d-flex justify-content-center">
-    {{ $showDataStock->onEachSide(1)->links('pagination::bootstrap-5') }}
+    {{ $detailStock->onEachSide(1)->links('pagination::bootstrap-5') }}
 </div>
 
   </div>

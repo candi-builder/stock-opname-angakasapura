@@ -13,6 +13,7 @@ class TStock extends Model
 
     protected $fillable = [
         'item_id',
+        'report_id',
         'tanggal',
         'stock',
     ];
