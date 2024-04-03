@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\auth;
 use App\Http\Controllers\MasterDataController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\StationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 
@@ -28,3 +30,17 @@ Route::post('/item/process-add', [MasterDataController::class, 'processAdd'])->n
 Route::get('/item/edit/{id}', [MasterDataController::class, 'formEdit'])->name("edit-item");
 Route::post('/item/process-edit', [MasterDataController::class, 'processEdit'])->name("process-edit-item");
 Route::delete('/item/delete/{id}', [MasterDataController::class, 'processDelete'])->name("delete-item");
+
+// regions
+Route::get('/region/list', [RegionController::class, 'index'])->name("get-list-region"); 
+Route::post('/region/process-add', [RegionController::class, 'processAdd'])->name("process-add-region"); 
+Route::get('/region/edit/{id}', [RegionController::class, 'formEdit'])->name("edit-region");
+Route::post('/region/process-edit', [RegionController::class, 'processEdit'])->name("process-edit-region"); 
+Route::delete('/region/delete/{id}', [RegionController::class, 'processDelete'])->name("delete-region");
+
+// station
+Route::get('/station/list', [StationController::class, 'index'])->name("get-list-station");
+Route::post('station/process-add', [StationController::class,"processAdd"])->name("process-add-station");
+Route::get('/station/edit/{id}', [StationController::class, 'formEdit'])->name("edit-station");
+Route::post('/station/process-edit', [StationController::class, 'processEdit'])->name("process-edit-station"); 
+Route::delete('/station/delete/{id}', [StationController::class, 'processDelete'])->name("delete-station");
