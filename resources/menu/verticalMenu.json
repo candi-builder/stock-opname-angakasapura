@@ -18,7 +18,7 @@
           "slug": "get-list-item"
         },
         {
-          "url": "/",
+          "url": "/material-group/list",
           "name": "material group",
           "slug": "dashboard-analytics"
         },

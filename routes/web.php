@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth;
 use App\Http\Controllers\MasterDataController;
+use App\Http\Controllers\MaterialGroupController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\UomController;
@@ -52,3 +53,10 @@ Route::post('/uom/process-add', [UomController::class, 'processAdd'])->name("pro
 Route::get('/uom/edit/{id}', [UomController::class, 'formEdit'])->name("edit-uom");
 Route::post('/uom/process-edit', [UomController::class, 'processEdit'])->name("process-edit-uom");
 Route::delete('/uom/delete/{id}', [UomController::class, 'processDelete'])->name("delete-uom");
+
+// material-goup
+Route::get('/material-group/list', [MaterialGroupController::class, 'index'])->name('get-list-material-group');
+Route::post('/material-group/process-add', [MaterialGroupController::class, 'processAdd'])->name('process-add-material-group');
+Route::get('/material-group/edit/{id}', [MaterialGroupController::class, 'formEdit'])->name('edit-material-group');
+Route::post('/material-group/process-edit', [MaterialGroupController::class, 'processEdit'])->name('process-edit-material-group');
+Route::delete('/material-group/delete/{id}', [MaterialGroupController::class, 'processDelete'])->name('delete-material-group');

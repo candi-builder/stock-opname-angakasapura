@@ -14,12 +14,6 @@ class RegionController extends Controller
     return view('content.region.list', compact('region'))->with('i');
   }
 
-  // menampilkan halaman create region
-  public function formAdd()
-  {
-    return view('content.region.form-add');
-  }
-
   // memasukkan data ke dalam database
   public function processAdd(Request $request)
   {
