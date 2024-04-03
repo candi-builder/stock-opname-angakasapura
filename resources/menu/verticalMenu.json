@@ -33,7 +33,7 @@
           "slug": "dashboard-analytics"
         },
         {
-          "url": "/",
+          "url": "/uom/list",
           "name": "uom",
           "slug": "dashboard-analytics"
         }
