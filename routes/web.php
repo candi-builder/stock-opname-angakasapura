@@ -4,6 +4,7 @@ use App\Http\Controllers\auth;
 use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\StationController;
+use App\Http\Controllers\UomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 
@@ -44,3 +45,10 @@ Route::post('station/process-add', [StationController::class,"processAdd"])->nam
 Route::get('/station/edit/{id}', [StationController::class, 'formEdit'])->name("edit-station");
 Route::post('/station/process-edit', [StationController::class, 'processEdit'])->name("process-edit-station"); 
 Route::delete('/station/delete/{id}', [StationController::class, 'processDelete'])->name("delete-station");
+
+// uom
+Route::get('/uom/list', [UomController::class, 'index'])->name("get-list-uom");
+Route::post('/uom/process-add', [UomController::class, 'processAdd'])->name("process-add-uom");
+Route::get('/uom/edit/{id}', [UomController::class, 'formEdit'])->name("edit-uom");
+Route::post('/uom/process-edit', [UomController::class, 'processEdit'])->name("process-edit-uom");
+Route::delete('/uom/delete/{id}', [UomController::class, 'processDelete'])->name("delete-uom");

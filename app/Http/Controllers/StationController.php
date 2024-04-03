@@ -77,7 +77,7 @@ class StationController extends Controller
 
   public function processDelete(string $id){
     try{
-      $deleted = station::destroy($id);
+      $deleted = Station::destroy($id);
 
       if ($deleted) {
         return redirect()->route('get-list-station')->with('success','Berhasil menghapus data station');
