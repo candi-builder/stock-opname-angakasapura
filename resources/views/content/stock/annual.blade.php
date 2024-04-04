@@ -37,7 +37,11 @@
     </form>
 </div>
   <div class="card-header d-flex justify-content-between">
-    <h5 class="">histori stock tahun {{Session::get('annualHistory') }}</h5>
+    <div class="d-flex flex-column">
+      
+      <h5 class="">histori stock tahun {{Session::get('annualHistory') }}</h5>
+      <p>total stok pada tahun ini :  {{$totalStock}}</p>
+    </div>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -81,8 +85,12 @@
           <td>{{ $stock->mgname}}</td>
           <td>{{ $stock->description}}</td>
           <td>{{ $stock->uomname}}</td>
-          <td>{{ $stock->stock}}</td>
+          <td>{{ $stock->qty}}</td>
           <td>{{ $stock->tanggal}}</td>
+          <td>
+            <a href="{{ route('detail-stock-today',  ['id' => $stock->mdid, 'tanggal' => $stock->tanggal,'jumlah' => $stock->stock]) }}">
+                <button type="submit" class="btn btn-info">Detail</button>
+            </a>
           </td>
         </tr>
         @endforeach

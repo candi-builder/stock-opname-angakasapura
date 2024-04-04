@@ -39,6 +39,7 @@
           <th>material group</th>
           <th>new description</th>
           <th>UOM</th>
+          <th>user</th>
           <th>grand total</th>
           <th>tanggal</th>
           <th>aksi</th>
@@ -52,7 +53,8 @@
           <td>{{ $report->mgname}}</td>
           <td>{{ $report->description}}</td>
           <td>{{ $report->uomname}}</td>
-          <td>{{ $report->total_jumlah}}</td>
+          <td>{{ $report->username}}</td>
+          <td>{{ $report->jumlah}}</td>
           <td>{{ $report->reporting_date}}</td>
 
           </td>

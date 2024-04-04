@@ -13,7 +13,12 @@
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
-      <h5 class="">stock item {{$itemname->no_article}} - {{$itemname->description}}  </h5>
+     <div class="d-flex flex-column">
+     <h5 class="">History  stock  </h5>
+      <p>no article : {{$itemname->no_article}} </p>
+      <p>description : {{$itemname->description}} </p>
+      <p>total stock item : {{$jumlah}}</p>
+     </div>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
