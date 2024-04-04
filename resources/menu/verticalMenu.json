@@ -9,7 +9,7 @@
     {
       "url": "/",
       "name": "Data Report",
-      "icon":"menu-icon tf-icons bx bx-bar-chart-alt-2",
+      "icon": "menu-icon tf-icons bx bx-bar-chart-alt-2",
       "slug": "dashboard-analytics"
     },
     {
@@ -45,8 +45,7 @@
       "url": "/item/list",
       "name": "Master Data",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "get-list-item",
-      
+      "slug": "get-list-item",     
       "submenu": [
         {
           "url": "/item/list",
@@ -54,22 +53,22 @@
           "slug": "get-list-item"
         },
         {
-          "url": "/",
+          "url": "/material-group/list",
           "name": "material group",
           "slug": "dashboard-analytics"
         },
         {
-          "url": "/",
+          "url": "/station/list",
           "name": "station",
           "slug": "dashboard-analytics"
         },
         {
-          "url": "/",
+          "url": "/region/list",
           "name": "region",
           "slug": "dashboard-analytics"
         },
         {
-          "url": "/",
+          "url": "/uom/list",
           "name": "uom",
           "slug": "dashboard-analytics"
         }
@@ -78,7 +77,7 @@
     {
       "url": "user/list",
       "name": "Management User",
-      "icon":"menu-icon tf-icons bx bx-group",
+      "icon": "menu-icon tf-icons bx bx-group",
       "slug": "get-list-user"
     }
   ]
