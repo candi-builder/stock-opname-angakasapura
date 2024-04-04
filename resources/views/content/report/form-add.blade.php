@@ -10,7 +10,7 @@
   <div class="col-xl-6">
     <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Edit Item</h5> <small class="text-muted float-end">item</small>
+        <h5 class="mb-0">Tambah Item</h5> <small class="text-muted float-end">item</small>
       </div>
 
       <div class="card-body">
@@ -24,18 +24,18 @@
               {{ session('error') }}
           </div>
       @endif
-        <form action="{{route('process-edit-item')}}" method="POST" >
+        <form action="{{route('process-add-item')}}" method="POST" >
         @csrf
           <div class="mb-3">
             <label class="form-label" for="no_article">no article</label>
-            <input type="text" disabled class="form-control" name="no_article" placeholder="ACSS" value="{{$dataItem->no_article}}" />
+            <input type="text" class="form-control" name="no_article" placeholder="ACSS" value="ACSS" />
             @error('no_article')
             <div class="text-danger">{{ $message }}</div>
   @enderror
           </div>
           <div class="mb-3">
             <label class="form-label" for="description">new description</label>
-            <input type="text" class="form-control" name="description" placeholder="nama item" value="{{$dataItem->description}}" />
+            <input type="text" class="form-control" name="description" placeholder="nama item" />
             @error('description')
             <div class="text-danger">{{ $message }}</div>
   @enderror
@@ -43,7 +43,7 @@
           <div class="mb-3">
             <label  class="form-label" for="mg">Material Group</label>
             <select  class="form-control selectdua" name="mg">
-            <option disabled value="{{$dataItem->mg_id }}">{{$dataItem->mgname}}</option>
+            <option disabled value="-">Pilih Material Group</option>
               @foreach($mg as $item)
               <option value="{{$item->id}}">{{$item->name}}</option>
               @endforeach
@@ -55,7 +55,7 @@
           <div class="mb-3">
             <label  class="form-label" for="basic-default-fullname">Station</label>
             <select  class="form-control selectdua" name="uom">
-            <option disabled value="{{$dataItem->uoms_id }}">{{$dataItem->uom_name}}</option>
+            <option disabled value="-">Pilih Station</option>
               @foreach($uoms as $uom)
               <option value="{{$uom->id}}">{{$uom->name}}</option>
               @endforeach

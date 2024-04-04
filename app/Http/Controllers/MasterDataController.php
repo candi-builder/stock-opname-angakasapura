@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Models\MasterData;
 use App\Models\MaterialGroup;
+use App\Models\Stock;
 use App\Models\Uom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterDataController extends Controller
 {
@@ -16,7 +18,7 @@ class MasterDataController extends Controller
         $dataItems = MasterData::join('material_groups as mg', 'master_data.material_group', '=', 'mg.id')
             ->join('uoms', 'master_data.uom', '=', 'uoms.id')
             ->select('master_data.*', 'uoms.name as uom_name', 'mg.name as mgname')
-            ->paginate(5);
+            ->paginate(25);
             $mg = MaterialGroup::get();
             $uoms = Uom::get();
         return view('content.item.list', compact('dataItems','mg','uoms'))
@@ -49,6 +51,7 @@ class MasterDataController extends Controller
             ]
         );
         try {
+            DB::beginTransaction();
             $item = new MasterData([
                 'no_article' => $request->input('no_article'),
                 'description' => $request->input('description'),
@@ -56,6 +59,12 @@ class MasterDataController extends Controller
                 'uom' => $request->input('uom'),
             ]);
             $item->save();
+            $stock = new Stock([
+                'master_data' => $item->id,
+                'stock' => 0,
+            ]);
+            $stock->save();
+            Db::commit();
             return redirect()->route('get-list-item')->with('success', 'Berhasil Menambah item baru');
 
         } catch (\Exception $e) {

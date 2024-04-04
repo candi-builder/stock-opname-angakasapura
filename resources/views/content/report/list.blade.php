@@ -4,16 +4,16 @@
 
   @section('content')
   <h4 class="py-3 mb-4">
-    <span class="text-muted fw-light">Master Data /</span> Item
+    <span class="text-muted fw-light">Buat Report
   </h4>
 
   <!-- Basic Bootstrap Table -->
 
   <!--/ Table within card -->
-   @if(session('userSession')->role == 'superadmin')
+
   <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Tambah Item</h5> <small class="text-muted float-end">item</small>
+        <h5 class="mb-0">Catat Stock</h5> <small class="text-muted float-end">item</small>
       </div>
 
       <div class="card-body">
@@ -27,52 +27,34 @@
               {{ session('error') }}
           </div>
       @endif
-        <form action="{{route('process-add-item')}}" method="POST" >
+        <form action="{{route('process-add-report')}}" method="POST" >
         @csrf
           <div class="mb-3">
-            <label class="form-label" for="no_article">no article</label>
-            <input type="text" class="form-control" name="no_article" placeholder="ACSS" value="ACSS" />
-            @error('no_article')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="description">new description</label>
-            <input type="text" class="form-control" name="description" placeholder="nama item" />
-            @error('description')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
-          <div class="mb-3">
-            <label  class="form-label" for="mg">Material Group</label>
-            <select  class="form-control selectdua" name="mg">
-            <option disabled value="-">Pilih Material Group</option>
-              @foreach($mg as $item)
-              <option value="{{$item->id}}">{{$item->name}}</option>
-              @endforeach
-            </select>
-            @error('mg')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
-          </div>
-          <div class="mb-3">
-            <label  class="form-label" for="basic-default-fullname">Station</label>
-            <select  class="form-control selectdua" name="uom">
-            <option disabled value="-">Pilih UOM</option>
-              @foreach($uoms as $uom)
-              <option value="{{$uom->id}}">{{$uom->name}}</option>
+            <label  class="form-label" for="basic-default-fullname">Item</label>
+            <select  class="form-control selectdua" name="item">
+            <option disabled value="-">Item</option>
+              @foreach($md as $item)
+              <option value="{{$item->id}}">{{$item->no_article}} - {{$item->description}}</option>
               @endforeach
             </select>
             @error('uom')
-            <div class="text-danger">{{ $message }}</div>
-  @enderror
+              <div class="text-danger">{{ $message }}</div>
+            @enderror
           </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">jumlah</label>
+            <input type="number" class="form-control" name="jumlah" placeholder="nama item" />
+            @error('jumlah')
+             <div class="text-danger">{{ $message }}</div>
+           @enderror
+          </div>
+         
+          
           <!-- <a href="{{route('get-list-item')}}" class="btn btn-outline-primary">Batal</a> -->
           <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
       </div>
     </div>
-    @endif
   <!-- Responsive Table -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
@@ -102,28 +84,35 @@
             <th>material group</th>
             <th>new description</th>
             <th>UOM</th>
+            <th>tanggal pelaporan</th>
+            <th>jumlah</th>
+            <th>reporter</th>
+            <th>station</th>
+            <th>region</th>
+            <th>aksi</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-          @foreach($dataItems as $item)
+          @foreach($dataReport as $report)
           <tr>
             <td>{{ ++$i}}</td>
-            <td>{{ $item->no_article}}</td>
-            <td>{{ $item->mgname}}</td>
-            <td>{{ $item->description}}</td>
-            <td>{{ $item->uom_name}}</td>
-            @if(session('userSession')->role == 'superadmin')
-            <td class="d-flex gap-2">
-            <a href="{{ route('edit-item', $item->no_article) }}">
-                <button type="submit" class="btn btn-success">Ubah</button>
-            </a>
-            <form method="POST" action="{{ route('delete-item', $item->id) }}">
+            <td>{{ $report->no_article}}</td>
+            <td>{{ $report->mgname}}</td>
+            <td>{{ $report->description}}</td>
+            <td>{{ $report->uomname}}</td>
+            <td>{{ $report->reporting_date}}</td>
+            <td>{{ $report->jumlah}}</td>
+            <td>{{ $report->username}}</td>
+            <td>{{ $stationUser->name}}</td>
+            <td>{{ $regionUser->name}}</td>
+            <td>
+
+            <form method="POST" action="{{ route('delete-report', $report->id) }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-outline-danger">Hapus</button>
             </form>
             </td>
-            @endif
           </tr>
           @endforeach
       
@@ -131,7 +120,7 @@
       </table>
         <!-- Pagination -->
         <div class="d-flex justify-content-center">
-      {{ $dataItems->onEachSide(1)->links('pagination::bootstrap-5') }}
+      {{ $dataReport->onEachSide(1)->links('pagination::bootstrap-5') }}
   </div>
 
     </div>

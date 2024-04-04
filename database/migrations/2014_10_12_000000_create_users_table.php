@@ -20,6 +20,15 @@ return new class extends Migration
             $table->enum('role', ['user', 'superadmin'])->default('user');
             $table->timestamps();
         });
+        DB::table('users')->insert([
+            'username' => 'superadmin',
+            'password' => 'superadmin', 
+            'station' => 0, 
+            'region' => 0, 
+            'role' => 'superadmin',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**

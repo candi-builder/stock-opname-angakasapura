@@ -1,6 +1,12 @@
 {
   "menu": [
     {
+      "url": "/report/list",
+      "name": "Buat Report",
+      "icon":"menu-icon tf-icons bx bx-bar-chart-alt-2",
+      "slug": "get-list-report"
+    },
+    {
       "url": "/",
       "name": "Data Report",
       "icon": "menu-icon tf-icons bx bx-bar-chart-alt-2",
@@ -8,9 +14,38 @@
     },
     {
       "url": "/",
+      "name": "Data Stock",
+      "icon": "menu-icon tf-icons bx bx-data",
+      "slug": "data-stock",
+      
+      "submenu": [
+        {
+          "url": "/report/stock/today",
+          "name": "jumlah stock per item",
+          "slug": "stock-items"
+        },
+        {
+          "url": "/report/stock/today",
+          "name": "hari ini",
+          "slug": "stock-today"
+        },
+        {
+          "url": "/report/stock/monthly",
+          "name": "bulanan",
+          "slug": "stock-monthly"
+        },
+        {
+          "url": "/report/stock/annual",
+          "name": "tahunan",
+          "slug": "stock-annual"
+        }
+      ]
+    },
+    {
+      "url": "/item/list",
       "name": "Master Data",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard",
+      "slug": "get-list-item",     
       "submenu": [
         {
           "url": "/item/list",

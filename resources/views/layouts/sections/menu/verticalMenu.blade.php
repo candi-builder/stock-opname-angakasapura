@@ -1,12 +1,16 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
+@php
+      $isAdmin = session('userSession')->role;
+      $menuToShow = $isAdmin == 'superadmin' ?  array_slice($menuData[0]->menu, 1,4) : array_filter($menuData[0]->menu, function($item) {
+    return $item->slug === 'get-list-report' || $item->slug === 'get-list-item';
+});
+    @endphp
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
     <a href="{{url('/')}}" class="app-brand-link">
       <span class="app-brand-logo demo">
-        @include('_partials.macros',["width"=>25,"withbg"=>'var(--bs-primary)'])
       </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">{{config('variables.templateName')}}</span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">stock opname</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -17,7 +21,7 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
-    @foreach ($menuData[0]->menu as $menu)
+    @foreach ($menuToShow as $menu)
 
     {{-- adding active and open class if child is active --}}
 

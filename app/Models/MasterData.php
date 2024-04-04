@@ -14,6 +14,9 @@ class MasterData extends Model
         'no_article',
         'material_group',
         'description',
-        'uom'
+        'uom',
+        'ending_stock',
+        'opening_stock',
+        'grand_total'
     ];
 }
