@@ -21,6 +21,11 @@
       "submenu": [
         {
           "url": "/report/stock/today",
+          "name": "jumlah stock per item",
+          "slug": "stock-items"
+        },
+        {
+          "url": "/report/stock/today",
           "name": "hari ini",
           "slug": "stock-today"
         },

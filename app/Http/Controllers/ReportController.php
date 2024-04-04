@@ -49,6 +49,15 @@ class ReportController extends Controller
 
     }
 
+    public function showStockPerItem(){
+        $shosStockPerItem = Stock::join('master_data','stocks.master_data','=','master_data.id')
+        ->join('material_groups as mg','master_data.material_group','=','mg.id')
+        ->join('uoms','master_data.uom','=','uoms.id')
+        ->select('master_data.description','master_data.no_article','uoms.name as uom','mg.name as material_group','stocks.stock')
+        ->paginate(25);
+        return view('content.stock.peritem', compact('shosStockPerItem'))
+        ->with('i');
+    }
     public function showHistoriStockToday()
     {
         $userSession = Session::get('userSession');

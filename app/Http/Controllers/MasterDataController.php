@@ -64,6 +64,7 @@ class MasterDataController extends Controller
                 'stock' => 0,
             ]);
             $stock->save();
+            Db::commit();
             return redirect()->route('get-list-item')->with('success', 'Berhasil Menambah item baru');
 
         } catch (\Exception $e) {
