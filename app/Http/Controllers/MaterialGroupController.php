@@ -62,4 +62,12 @@ class MaterialGroupController extends Controller
             return redirect()->route('get-list-material-group')->with('error', 'terjadi kesalahan');
         }
     }
+
+    public function search(Request $request){
+        $search = $request->input('cari');
+        $searchMaterialGroup = MaterialGroup::where('name','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('content.material-group.list', compact('searchMaterialGroup'))->with('i');
+    }
 }

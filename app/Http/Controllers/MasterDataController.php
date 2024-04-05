@@ -132,4 +132,12 @@ class MasterDataController extends Controller
 
         }
     }
+
+    public function search(Request $request){
+        $search = $request->input('cari');
+        $dataItems = MasterData::where('no_article','like',"%".$search."%")
+        ->paginate(10);
+
+        return view('content.item.list', compact('dataItems'))->with('i');
+    }
 }

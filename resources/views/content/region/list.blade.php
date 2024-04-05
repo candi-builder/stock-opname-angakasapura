@@ -8,9 +8,7 @@
 </h4>
 
 <!-- Basic Bootstrap Table -->
-
-<!--/ Table within card -->
-
+@if(session('userSession')->role == 'superadmin')
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Tambah Data Region</h5> <small class="text-muted float-end">item</small>
@@ -30,7 +28,7 @@
     <form action="{{route('process-add-region')}}" method="POST" >
     @csrf
       <div class="mb-3">
-        <label class="form-label" for="name">Name Region</label>
+        <label class="form-label" for="name">Nama Region</label>
         <input type="text" class="form-control" name="name" placeholder="Nama Region" value="" />
         @error('name')
         <div class="text-danger">{{ $message }}</div>
@@ -41,22 +39,32 @@
     </form>
   </div>
 </div>
+@endif
 
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
     <h5 class="">item</h5>
     @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+    <div class="alert alert-success" role="alert">
+      {{ session('success') }}
+    </div>
+    @endif
+    
+    @if (session('error'))
+    <div class="alert alert-danger" role="alert">
+      {{ session('error') }}
+    </div>
+    @endif
+    <form action="{{route('get-list-region')}}" method="GET" >
+      @csrf
+        <div class="input-group">
+          <input type="text" class="form-control" name="cari" placeholder="Cari disini" value="" />
+          <button type="submit" class="btn btn-primary">
+            Cari
+          </button>
+        </div>
+      </form>
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -68,10 +76,11 @@
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach($region as $item)
+        @foreach($searchRegion as $item)
         <tr>
           <td>{{ ++$i}}</td>
           <td>{{ $item->name}}</td>
+          @if(session('userSession')->role == 'superadmin')
           <td class="d-flex gap-2">
           <a href="{{ route('edit-region', $item->id) }}">
               <button type="submit" class="btn btn-success">Ubah</button>
@@ -82,6 +91,7 @@
               <button type="submit" class="btn btn-outline-danger">Hapus</button>
           </form>
           </td>
+          @endif
         </tr>
         @endforeach
     
@@ -89,7 +99,7 @@
     </table>
       <!-- Pagination -->
       <div class="d-flex justify-content-center">
-    {{ $region->onEachSide(1)->links('pagination::bootstrap-5') }}
+    {{ $searchRegion->onEachSide(1)->links('pagination::bootstrap-5') }}
 </div>
 
   </div>

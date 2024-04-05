@@ -61,4 +61,11 @@ class UomController extends Controller
             return redirect()->route('get-list-uom')->with('error', 'Terjadi Kesalahan');
         }
     }
+
+    public function search(Request $request){
+        $search = $request->input('cari');
+        $uom = Uom::where('name','like','%'.$search.'%')->paginate();
+
+        return view('content.uom.list', compact('uom'))->with('i');
+    }
 }

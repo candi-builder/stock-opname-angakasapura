@@ -30,6 +30,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::delete('/user/delete/{id}', [auth::class, 'deleteUser'])->name("delete-user");
   Route::post('/user/reset-pw/{id}', [auth::class, 'resetPw'])->name("reset-pw");
   Route::get('/user/logout', [auth::class, 'logout'])->name("logout");
+//   Route::get('/user/list', [auth::class, 'search'])->name("get-list-user");
 
   //master-data
   Route::get('/item/list', [MasterDataController::class, 'index'])->name("get-list-item");
@@ -38,12 +39,15 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/item/edit/{id}', [MasterDataController::class, 'formEdit'])->name("edit-item");
   Route::post('/item/process-edit', [MasterDataController::class, 'processEdit'])->name("process-edit-item");
   Route::delete('/item/delete/{id}', [MasterDataController::class, 'processDelete'])->name("delete-item");
+  Route::get('/item/list', [MasterDataController::class, 'search'])->name("get-list-item");
+
   //report
   Route::get('/report/list', [ReportController::class, 'index'])->name("get-list-report");
   Route::get('/report/admin', [ReportController::class, 'showReportAdmin'])->name("get-list-report-admin");
   Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
   Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
   Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");
+//   Route::get('/report/list', [ReportController::class, 'search'])->name("get-list-report");
 
   //stock
   Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockToday'])->name("stock-today");
@@ -52,6 +56,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");
   Route::post('/filterData', [ReportController::class, 'filterData'])->name("filter-data-stock");
   Route::get('/stock/detail/today/{id}/{tanggal}/{jumlah}', [ReportController::class, 'detailReportToday'])->name("detail-stock-today");
+//   Route::get('/report/stock/today', [ReportController::class, 'search'])->name("stock-today");
 
   // regions
   Route::get('/region/list', [RegionController::class, 'index'])->name("get-list-region");
@@ -59,6 +64,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/region/edit/{id}', [RegionController::class, 'formEdit'])->name("edit-region");
   Route::post('/region/process-edit', [RegionController::class, 'processEdit'])->name("process-edit-region");
   Route::delete('/region/delete/{id}', [RegionController::class, 'processDelete'])->name("delete-region");
+  Route::get('region/list', [RegionController::class,'search'])->name('get-list-region');
 
   // station
   Route::get('/station/list', [StationController::class, 'index'])->name("get-list-station");
@@ -66,6 +72,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/station/edit/{id}', [StationController::class, 'formEdit'])->name("edit-station");
   Route::post('/station/process-edit', [StationController::class, 'processEdit'])->name("process-edit-station");
   Route::delete('/station/delete/{id}', [StationController::class, 'processDelete'])->name("delete-station");
+  Route::get('/station/list', [StationController::class, 'search'])->name("get-list-station");
 
   // uom
   Route::get('/uom/list', [UomController::class, 'index'])->name("get-list-uom");
@@ -73,6 +80,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/uom/edit/{id}', [UomController::class, 'formEdit'])->name("edit-uom");
   Route::post('/uom/process-edit', [UomController::class, 'processEdit'])->name("process-edit-uom");
   Route::delete('/uom/delete/{id}', [UomController::class, 'processDelete'])->name("delete-uom");
+  Route::get('/uom/list', [UomController::class,'search'])->name('get-list-uom');
 
   // material-goup
   Route::get('/material-group/list', [MaterialGroupController::class, 'index'])->name('get-list-material-group');
@@ -80,4 +88,5 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/material-group/edit/{id}', [MaterialGroupController::class, 'formEdit'])->name('edit-material-group');
   Route::post('/material-group/process-edit', [MaterialGroupController::class, 'processEdit'])->name('process-edit-material-group');
   Route::delete('/material-group/delete/{id}', [MaterialGroupController::class, 'processDelete'])->name('delete-material-group');
+  Route::get('/material-group/list', [MaterialGroupController::class, 'search'])->name('get-list-material-group');
 });

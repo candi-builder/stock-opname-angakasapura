@@ -8,9 +8,7 @@
 </h4>
 
 <!-- Basic Bootstrap Table -->
-
-<!--/ Table within card -->
-
+@if(session('userSession')->role == 'superadmin')
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Tambah Data Material Group</h5> <small class="text-muted float-end">item</small>
@@ -36,11 +34,12 @@
         <div class="text-danger">{{ $message }}</div>
 @enderror
       </div>
-      <a href="{{route('get-list-material-group')}}" class="btn btn-outline-primary">Batal</a>
+      {{-- <a href="{{route('get-list-material-group')}}" class="btn btn-outline-primary">Batal</a> --}}
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
   </div>
 </div>
+@endif
 
 <!-- Responsive Table -->
 <div class="card">
@@ -57,6 +56,17 @@
                             {{ session('error') }}
                         </div>
                     @endif
+                    {{-- Search --}}
+  <form action="{{route('get-list-material-group')}}" method="GET" >
+  @csrf
+    <div class="input-group">
+      <input type="text" class="form-control" name="cari" placeholder="Cari disini" value="" />
+      <button type="submit" class="btn btn-primary">
+        Cari
+      </button>
+    </div>
+  </form>
+{{-- end search --}}
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -68,10 +78,11 @@
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach($materialGroup as $item)
+        @foreach($searchMaterialGroup as $item)
         <tr>
           <td>{{ ++$i}}</td>
           <td>{{ $item->name}}</td>
+          @if(session('userSession')->role == 'superadmin')
           <td class="d-flex gap-2">
           <a href="{{ route('edit-material-group', $item->id) }}">
               <button type="submit" class="btn btn-success">Ubah</button>
@@ -82,6 +93,7 @@
               <button type="submit" class="btn btn-outline-danger">Hapus</button>
           </form>
           </td>
+          @endif
         </tr>
         @endforeach
     
@@ -89,7 +101,7 @@
     </table>
       <!-- Pagination -->
       <div class="d-flex justify-content-center">
-    {{ $materialGroup->onEachSide(1)->links('pagination::bootstrap-5') }}
+    {{ $searchMaterialGroup->onEachSide(1)->links('pagination::bootstrap-5') }}
 </div>
 
   </div>

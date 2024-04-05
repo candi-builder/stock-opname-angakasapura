@@ -88,4 +88,11 @@ class StationController extends Controller
       return redirect()->route('get-list-station')->with('error', 'terjadi kesalahan');
     }
   }
+
+  public function search(Request $request){
+    $search = $request->input('cari');
+    $station = Station::where('name','LIKE','%'.$search.'%')->paginate(10);
+
+    return view('content.station.list', compact('station'))->with('i');
+  }
 }

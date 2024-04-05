@@ -63,7 +63,6 @@ class RegionController extends Controller
       $item->save();
       return redirect()->route('get-list-region')->with('success','Berhasil mengubah data region');
     } catch (\Exception $e) {
-        dd($e);  
         return redirect()->route('get-list-region')->with('error','terjadi kesalahan');
       }
 
@@ -82,4 +81,12 @@ class RegionController extends Controller
       return redirect()->route('get-list-region')->with('error', 'terjadi kesalahan');
     }
   }
+
+  public function search(Request $request){
+    $search = $request->input('cari');
+    $searchRegion = Region::where('name','like',"%".$search."%")
+    ->paginate(10);
+
+    return view('content.region.list', compact('searchRegion'))->with('i');
+}
 }

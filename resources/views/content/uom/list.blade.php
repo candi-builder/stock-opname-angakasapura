@@ -10,7 +10,7 @@
 <!-- Basic Bootstrap Table -->
 
 <!--/ Table within card -->
-
+@if(session('userSession')->role == 'superadmin')
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Tambah Data uom</h5> <small class="text-muted float-end">item</small>
@@ -41,7 +41,7 @@
     </form>
   </div>
 </div>
-
+@endif
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
@@ -57,6 +57,16 @@
                             {{ session('error') }}
                         </div>
                     @endif
+  {{-- search --}}
+  <form action="{{route('get-list-uom')}}" method="GET">
+    @csrf
+    <div class="input-group">
+      <input type="text" class="form-control" name="cari" placeholder="Cari disini">
+      <button class="btn btn-primary" type="submit">
+        Cari
+      </button>
+    </div>
+  </form>
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -72,6 +82,7 @@
         <tr>
           <td>{{ ++$i}}</td>
           <td>{{ $item->name}}</td>
+          @if (session('userSession')->role == 'superadmin')            
           <td class="d-flex gap-2">
           <a href="{{ route('edit-uom', $item->id) }}">
               <button type="submit" class="btn btn-success">Ubah</button>
@@ -82,6 +93,7 @@
               <button type="submit" class="btn btn-outline-danger">Hapus</button>
           </form>
           </td>
+          @endif
         </tr>
         @endforeach
     
