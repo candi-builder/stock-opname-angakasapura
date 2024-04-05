@@ -9,7 +9,19 @@
 
 <!-- Basic Bootstrap Table -->
 
-<!--/ Table within card -->
+{{-- Search --}}
+  <div class="card-body">
+    <form action="{{route('search-material-group')}}" method="GET" >
+    @csrf
+      <div class="mb-3">
+        <input type="text" class="form-control w-280px mb-2" name="cari" placeholder="Cari disini" value="" />
+        <button type="submit" class="btn btn-primary">
+          Cari
+        </button>
+      </div>
+    </form>
+  </div>
+{{-- end search --}}
 
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
@@ -36,7 +48,6 @@
         <div class="text-danger">{{ $message }}</div>
 @enderror
       </div>
-      <a href="{{route('get-list-material-group')}}" class="btn btn-outline-primary">Batal</a>
       <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
   </div>
@@ -68,7 +79,7 @@
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach($materialGroup as $item)
+        @foreach($searchMaterialGroup as $item)
         <tr>
           <td>{{ ++$i}}</td>
           <td>{{ $item->name}}</td>
@@ -89,7 +100,7 @@
     </table>
       <!-- Pagination -->
       <div class="d-flex justify-content-center">
-    {{ $materialGroup->onEachSide(1)->links('pagination::bootstrap-5') }}
+    {{ $searchMaterialGroup->onEachSide(1)->links('pagination::bootstrap-5') }}
 </div>
 
   </div>

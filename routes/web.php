@@ -60,3 +60,4 @@ Route::post('/material-group/process-add', [MaterialGroupController::class, 'pro
 Route::get('/material-group/edit/{id}', [MaterialGroupController::class, 'formEdit'])->name('edit-material-group');
 Route::post('/material-group/process-edit', [MaterialGroupController::class, 'processEdit'])->name('process-edit-material-group');
 Route::delete('/material-group/delete/{id}', [MaterialGroupController::class, 'processDelete'])->name('delete-material-group');
+Route::get('/material-group/list', [MaterialGroupController::class, 'search'])->name('search-material-group');
