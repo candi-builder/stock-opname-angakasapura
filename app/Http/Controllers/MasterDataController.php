@@ -68,7 +68,8 @@ class MasterDataController extends Controller
             return redirect()->route('get-list-item')->with('success', 'Berhasil Menambah item baru');
 
         } catch (\Exception $e) {
-            return redirect()->route('get-list  -item')->with('error', 'terjadi kesalahan');
+            // dd($e);
+            return redirect()->route('get-list-item')->with('error', 'terjadi kesalahan');
         }
     }
 
@@ -135,9 +136,14 @@ class MasterDataController extends Controller
 
     public function search(Request $request){
         $search = $request->input('cari');
-        $dataItems = MasterData::where('no_article','like',"%".$search."%")
-        ->paginate(10);
+        $dataItems = MasterData::join('material_groups as mg', 'master_data.material_group', '=', 'mg.id')
+        ->join('uoms', 'master_data.uom', '=', 'uoms.id')
+        ->select('master_data.*', 'uoms.name as uom_name', 'mg.name as mgname')->where('no_article','like',"%".$search."%")
+        ->orWhere('description','like',"%".$search."%")
+        ->paginate(25);
+        $mg = MaterialGroup::get();
+        $uoms = Uom::get();
 
-        return view('content.item.list', compact('dataItems'))->with('i');
+        return view('content.item.list', compact('dataItems','mg','uoms'))->with('i');
     }
 }

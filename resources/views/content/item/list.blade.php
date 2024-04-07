@@ -91,7 +91,8 @@
       <!-- <a href="{{route('add-item')}}">
         <button class="btn btn-primary">Tambah Item</button>
       </a> -->
-      <div><form action="{{route('get-list-region')}}" method="GET" >
+      <div>
+        <form action="{{route('get-list-item')}}" method="GET" >
         @csrf
           <div class="input-group">
             <input type="text" class="form-control" name="cari" placeholder="Cari disini" value="" />
