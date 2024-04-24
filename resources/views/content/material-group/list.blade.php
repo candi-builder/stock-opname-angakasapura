@@ -74,7 +74,9 @@
         <tr class="text-nowrap">
           <th>No</th>
           <th>name</th>
+          @if(session('userSession')->role == 'superadmin')
           <th>aksi</th>
+          @endif
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
