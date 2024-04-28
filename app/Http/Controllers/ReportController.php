@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MonthlyExport;
 use App\Models\MasterData;
 use App\Models\Region;
 use App\Models\Report;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -69,7 +71,7 @@ class ReportController extends Controller
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
             ->where('tanggal', '=', $userSession->today)
-            ->select('stocks.*','tstock.stock as qty', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as umoname', 'tstock.tanggal','md.id as mdid')
+            ->select('stocks.*','tstock.stock as qty', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as uomname', 'tstock.tanggal','md.id as mdid')
             ->paginate(25)
         ;
         return view('content.stock.today', compact('showDataStock','totalStock'))
@@ -117,6 +119,10 @@ class ReportController extends Controller
         return view('content.stock.monthly', compact('showDataStock', 'bulan', 'year','totalStock'))
             ->with('i');
 
+    }
+
+    public function monthlyExportExcel(){
+        return Excel::download(new MonthlyExport,'monthly.xlsx');
     }
 
     public function filterData(Request $request)

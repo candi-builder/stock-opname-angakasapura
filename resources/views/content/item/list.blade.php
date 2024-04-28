@@ -56,7 +56,7 @@
   @enderror
           </div>
           <div class="mb-3">
-            <label  class="form-label" for="basic-default-fullname">Station</label>
+            <label  class="form-label" for="basic-default-fullname">UOM</label>
             <select  class="form-control selectdua" name="uom">
             <option disabled value="-">Pilih UOM</option>
               @foreach($uoms as $uom)
@@ -111,6 +111,9 @@
             <th>material group</th>
             <th>new description</th>
             <th>UOM</th>
+            @if(session('userSession')->role == 'superadmin')
+            <th>aksi</th>
+            @endif
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
