@@ -42,7 +42,6 @@
           <th>user</th>
           <th>grand total</th>
           <th>tanggal</th>
-          <th>aksi</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">

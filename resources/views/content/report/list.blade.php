@@ -89,9 +89,6 @@
             <th>reporter</th>
             <th>station</th>
             <th>region</th>
-            @if(session('userSession')->role == 'superadmin')
-            <th>aksi</th>
-            @endif
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
@@ -107,14 +104,6 @@
             <td>{{ $report->username}}</td>
             <td>{{ $stationUser->name}}</td>
             <td>{{ $regionUser->name}}</td>
-            <td>
-
-            <form method="POST" action="{{ route('delete-report', $report->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
-            </form>
-            </td>
           </tr>
           @endforeach
       

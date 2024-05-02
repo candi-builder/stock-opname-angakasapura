@@ -113,7 +113,7 @@ class ReportController extends Controller
             ->join('uoms', 'md.uom', '=', 'uoms.id')
             ->whereMonth('tanggal', '=', $month)
             ->whereYear('tanggal', '=', $year)
-            ->select('stocks.*','tstock.stock as qty', 'md.no_article', 'md.description', 'mg.name as mgname','md.id as mdid', 'uoms.name as umoname', 'tstock.tanggal')
+            ->select('stocks.*','tstock.stock as qty', 'md.no_article', 'md.description', 'mg.name as mgname','md.id as mdid', 'uoms.name as uomname', 'tstock.tanggal')
             ->paginate(25)
         ;
         return view('content.stock.monthly', compact('showDataStock', 'bulan', 'year','totalStock'))
