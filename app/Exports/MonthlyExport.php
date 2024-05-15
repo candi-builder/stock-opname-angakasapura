@@ -21,6 +21,45 @@ class MonthlyExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
         
         // Membuat heading awal
         $heading = [
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
             'NO',
             'NEW ARTICLE NO.',
             'MATERIAL GROUP',

@@ -26,14 +26,12 @@ class ReportController extends Controller
             ->join('master_data as md', 'reports.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->select('reports.id', 'reporting_date', 'reports.jumlah', 'md.no_article', 'md.description', 'mg.name as mgname', 'uoms.name as uomname', 'users.username')
+            ->select('md.no_article', 'mg.name as mgname', 'md.description','uoms.name as uomname', 'users.username', 'reports.reporting_date', 'reports.jumlah')
             ->where('users.username', $userSession->username)
             ->paginate(25);
-
         $md = MasterData::select('id', 'no_article', 'description')->get();
         return view('content.report.list', compact('dataReport', 'md', 'stationUser', 'regionUser'))
             ->with('i');
-
     }
 
     public function showReportAdmin()
@@ -191,6 +189,7 @@ class ReportController extends Controller
         $userSession = Session::get('userSession');
 
         $currentDate = Carbon::now();
+        $currentMonth = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)->month;
         $currentYear = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate)->year;
         try {
 
@@ -203,7 +202,7 @@ class ReportController extends Controller
             if ($existingStock) {
 
                 $existingTStock = TStock::where('item_id', $existingStock->id)
-                    ->where('tanggal', $currentDate->toDateString())
+                    ->where('bulan', $currentMonth)
                     ->first();
                 if ($existingTStock) {
 
@@ -245,11 +244,6 @@ class ReportController extends Controller
                 }
                 DB::beginTransaction();
 
-                $tstock = new TStock([
-                    'item_id' => $existingStock->id,
-                    'tanggal' => $currentDate->toDateString(),
-                    'stock' => $request->input('jumlah'),
-                ]);
                 $item = new Report([
                     'master_data' => $request->input('item'),
                     'reporter' => $userSession->id,
@@ -257,26 +251,23 @@ class ReportController extends Controller
                     'reporting_year' => $currentYear,
                     'jumlah' => $request->input('jumlah'),
                 ]);
+                $item->save();
+                $tstock = new TStock([
+                    'item_id' => $existingStock->id,
+                    'report_id' => $item->id,
+                    'bulan' => $currentMonth,
+                    'tahun' => $currentYear,
+                    'stock' => $request->input('jumlah'),
+                ]);
+                $tstock->save();
                 $existingStock->stock += $request->input('jumlah');
                 $existingStock->save();
-                $tstock->save();
-                $item->save();
                 DB::commit();
 
                 return redirect()->route('get-list-report')->with('success', 'Berhasil merubah stock');
             }
             DB::beginTransaction();
 
-            $stock = new Stock([
-                'master_data' => $request->input('item'),
-                'stock' => $request->input('jumlah'),
-            ]);
-            $stock->save();
-            $tstock = new TStock([
-                'item_id' => $stock->id,
-                'tanggal' => $currentDate->toDateString(),
-                'stock' => $request->input('jumlah'),
-            ]);
             $item = new Report([
                 'master_data' => $request->input('item'),
                 'reporter' => $userSession->id,
@@ -284,8 +275,20 @@ class ReportController extends Controller
                 'reporting_year' => $currentYear,
                 'jumlah' => $request->input('jumlah'),
             ]);
+            $item->save();  
+            $stock = new Stock([
+                'master_data' => $request->input('item'),
+                'stock' => $request->input('jumlah'),
+            ]);
+            $stock->save();
+            $tstock = new TStock([
+                'item_id' => $stock->id,
+                'report_id' => $item->id,
+                'bulan' => $currentMonth,
+                'tahun' => $currentYear,
+                'stock' => $request->input('jumlah'),
+            ]);
             $tstock->save();
-            $item->save();
             DB::commit();
 
             return redirect()->route('get-list-report')->with('success', 'Berhasil Merubah stock');

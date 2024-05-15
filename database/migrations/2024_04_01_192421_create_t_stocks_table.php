@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('item_id');
             $table->integer('report_id');
-            $table->date('tanggal');
+            $table->integer('bulan');
+            $table->year('tahun');
             $table->integer('stock');
             $table->timestamps();
         });
