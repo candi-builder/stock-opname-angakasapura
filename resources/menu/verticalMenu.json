@@ -8,12 +8,6 @@
     },
     {
       "url": "/",
-      "name": "Data Report",
-      "icon": "menu-icon tf-icons bx bx-bar-chart-alt-2",
-      "slug": "dashboard-analytics"
-    },
-    {
-      "url": "/",
       "name": "Data Stock",
       "icon": "menu-icon tf-icons bx bx-data",
       "slug": "data-stock",
@@ -23,11 +17,6 @@
           "url": "/report/stock/items",
           "name": "jumlah stock per item",
           "slug": "stock-items"
-        },
-        {
-          "url": "/report/stock/today",
-          "name": "hari ini",
-          "slug": "stock-today"
         },
         {
           "url": "/report/stock/monthly",
@@ -41,6 +30,13 @@
         }
       ]
     },
+    {
+      "url": "/",
+      "name": "log Report",
+      "icon": "menu-icon tf-icons bx bx-bar-chart-alt-2",
+      "slug": "dashboard-analytics"
+    },
+   
     {
       "url": "/item/list",
       "name": "Master Data",

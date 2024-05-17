@@ -316,6 +316,21 @@ class ReportController extends Controller
         return view('content.stock.detail.today', compact('detailStock', 'tanggal', 'jumlah', 'itemname'))
             ->with('i');
     }
+    public function detailReport($id, $tanggal, $jumlah)
+    {
+        $detailStock = Report::join('master_data as md', 'reports.master_data', '=', 'md.id')
+            ->join('users', 'reports.reporter', 'users.id')
+            ->join('stations', 'users.station', 'stations.id')
+            ->join('regions', 'users.region', 'regions.id')
+            ->select('users.username as asu', 'regions.name as region', 'stations.name as station', 'jumlah')
+            ->where('reports.master_data', $id)
+            ->whereMonth('reports.reporting_date', $tanggal)
+            ->paginate(25);
+        $itemname = MasterData::findOrFail($id)->first();
+        $monthName =  Carbon::create()->month($tanggal)->monthName;
+        return view('content.stock.detail.monthly', compact('detailStock', 'tanggal', 'jumlah', 'itemname','monthName'))
+            ->with('i');
+    }
 
 
 }

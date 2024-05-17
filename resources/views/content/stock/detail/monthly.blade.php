@@ -6,7 +6,8 @@
 @php
 
     // Konversi angka bulan menjadi nama bulan menggunakan Carbon
-    $monthName = \Carbon\Carbon::create()->month($tanggal)->monthName;
+
+
 @endphp
 <h4 class="py-3 mb-4">
   <span class="text-muted fw-light">detail stock per user pada bulan {{$monthName}}
@@ -49,18 +50,16 @@
           <th>station</th>
           <th>region</th>
           <th>jumlah yang dimasukan</th>
-          <th>tanggal</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
         @foreach($detailStock as $stock)
         <tr>
           <td>{{ ++$i}}</td>
-          <td>{{ $stock->reporter}}</td>
+          <td>{{ $stock->asu}}</td>
           <td>{{ $stock->station}}</td>
           <td>{{ $stock->region}}</td>
           <td>{{ $stock->jumlah}}</td>
-          <td>{{ $stock->tanggal}}</td>
           </td>
         </tr>
         @endforeach
