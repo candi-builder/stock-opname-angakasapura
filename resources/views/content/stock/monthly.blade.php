@@ -76,7 +76,7 @@
           <th>new description</th>
           <th>UOM</th>
           <th>grand total</th>
-          <th>tanggal</th>
+          <th>bulan</th>
           <th>aksi</th>
         </tr>
       </thead>
@@ -94,7 +94,7 @@
           <td>{{ $stock->description}}</td>
           <td>{{ $stock->uomname}}</td>
           <td>{{ $stock->qty}}</td>
-          <td>{{ $stock->tanggal}}</td>
+          <td>{{ $stock->bulan}}</td>
           <td>
             <a href="{{ route('detail-stock-today',  ['id' => $stock->mdid, 'tanggal' => $stock->tanggal,'jumlah' => $stock->stock]) }}">
                 <button type="submit" class="btn btn-info">Detail</button>

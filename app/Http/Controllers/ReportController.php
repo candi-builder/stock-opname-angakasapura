@@ -102,21 +102,20 @@ class ReportController extends Controller
             12 => 'Desember',
         ];
         $totalStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
-        ->whereMonth('tanggal', '=', $month)
-        ->whereYear('tanggal', '=', $year)
+        ->whereMonth('bulan', '=', $month)
+        ->whereYear('tahun', '=', $year)
         ->sum('tstock.stock');
         $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
             ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->whereMonth('tanggal', '=', $month)
-            ->whereYear('tanggal', '=', $year)
-            ->select('stocks.*','tstock.stock as qty', 'md.no_article', 'md.description', 'mg.name as mgname','md.id as mdid', 'uoms.name as uomname', 'tstock.tanggal')
+            ->whereMonth('bulan', '=', $month)
+            ->whereYear('tahun', '=', $year)
+            ->select('md.no_article', 'mg.name as mgname','md.description', 'uoms.name as uomname', 'tstock.stock','tstock.bulan')
             ->paginate(25)
         ;
         return view('content.stock.monthly', compact('showDataStock', 'bulan', 'year','totalStock'))
             ->with('i');
-
     }
 
     public function monthlyExportExcel(){
