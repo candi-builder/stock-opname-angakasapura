@@ -20,7 +20,7 @@
       
       "submenu": [
         {
-          "url": "/report/stock/today",
+          "url": "/report/stock/item",
           "name": "jumlah stock per item",
           "slug": "stock-items"
         },
