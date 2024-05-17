@@ -93,10 +93,10 @@
           <td>{{ $stock->mgname}}</td>
           <td>{{ $stock->description}}</td>
           <td>{{ $stock->uomname}}</td>
-          <td>{{ $stock->qty}}</td>
+          <td>{{ $stock->stock}}</td>
           <td>{{ $stock->bulan}}</td>
           <td>
-            <a href="{{ route('detail-stock-today',  ['id' => $stock->mdid, 'tanggal' => $stock->tanggal,'jumlah' => $stock->stock]) }}">
+            <a href="{{ route('detail-stock-today',  ['id' => $stock->mdid, 'tanggal' => $stock->bulan,'jumlah' => $stock->stock]) }}">
                 <button type="submit" class="btn btn-info">Detail</button>
             </a>
           </td>

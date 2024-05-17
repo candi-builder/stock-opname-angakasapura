@@ -56,7 +56,7 @@
         @foreach($detailStock as $stock)
         <tr>
           <td>{{ ++$i}}</td>
-          <td>{{ $stock->asu}}</td>
+          <td>{{ $stock->reporter}}</td>
           <td>{{ $stock->station}}</td>
           <td>{{ $stock->region}}</td>
           <td>{{ $stock->jumlah}}</td>
