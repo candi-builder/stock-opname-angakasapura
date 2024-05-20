@@ -24,6 +24,7 @@
       <p>no article : {{$itemname->no_article}} </p>
       <p>description : {{$itemname->description}} </p>
       <p>total stock item : {{$jumlah}}</p>
+    <a href="{{ route('stock-detail-monthly-export-excel',  ['id' => $itemname->id])}}"  class="btn btn-success my-3">EXPORT EXCEL</a>
      </div>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">

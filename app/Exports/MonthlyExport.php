@@ -1,6 +1,8 @@
 <?php
 namespace App\Exports;
 
+use App\Models\TStock;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -9,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Facades\Session;
 
 class MonthlyExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
 {
@@ -16,63 +19,15 @@ class MonthlyExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
 
     public function headings(): array
     {
-        // Mendapatkan nama semua stasiun
-        $stations = DB::table("stations")->select('name')->get();
-        
-        // Membuat heading awal
         $heading = [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
             'NO',
             'NEW ARTICLE NO.',
             'MATERIAL GROUP',
             'NEW DESCRIPTION',
             'UOM',
             'TOTAL STOCK',
+            'BULAN'
         ];
-
-        // Menambahkan nama stasiun sebagai heading tambahan
-        foreach ($stations as $station) {
-            $heading[] = $station->name;
-        }
-
         return $heading;
     }
 
@@ -90,39 +45,42 @@ class MonthlyExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
 
     public function collection()
     {
+        $currentDate = Carbon::now();
+        $dateFormat = Carbon::createFromFormat('Y-m-d H:i:s', $currentDate);
+        if (!Session::has('monthlyHistory')) {
+            Session::put('monthlyHistory', $dateFormat->month);
+        }
+        $month = Session::get('monthlyHistory');
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+
         return DB::table('stocks')
             ->join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
             ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->select('md.no_article','mg.name as material_groups','md.description','uoms.name as uoms', 'stocks.stock')
+            ->where('bulan', '=', $month)
+            ->select('md.no_article','mg.name as material_groups','md.description','uoms.name as uoms', 'stocks.stock', 'bulan')
             ->get();
     }
 
     public function map($row): array{
-        // Incremental counter untuk nomor urut
-        static $rowNumber = 0;
+        static $rowNumber = 0;  
 
-        // Increment counter untuk setiap baris
         $rowNumber++;
 
-        // Mendapatkan nama semua stasiun
-        $stations = DB::table("stations")->select('name')->get();
-
-        // Mendapatkan nilai stok untuk setiap stasiun
-        $stockByStation = [];
-
-        foreach ($stations as $station) {
-            // Query untuk mendapatkan stok untuk setiap stasiun
-            $stock = DB::table('station_stocks')
-                ->where('station_id', $station->id) // Ubah menjadi kondisi yang sesuai dengan struktur tabel Anda
-                ->where('stock_id', $row->id) // Ubah menjadi kondisi yang sesuai dengan struktur tabel Anda
-                ->value('stock');
-
-            $stockByStation[$station->name] = $stock ?? ''; // Menambahkan nilai stok ke dalam array, jika stok tidak ditemukan, gunakan string kosong
-        }
-
-        // Membuat data untuk baris saat ini
         $data = [
             'No' => $rowNumber,
             'NEW ARTICLE NO.' => $row->no_article,
@@ -130,12 +88,8 @@ class MonthlyExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             'NEW DESCRIPTION' => $row->description,
             'UOM' => $row->uoms,
             'TOTAL STOCK' => $row->stock,
+            'BULAN' => $row->bulan
         ];
-
-        // Menambahkan nilai stok untuk setiap stasiun ke dalam data
-        foreach ($stockByStation as $stationName => $stock) {
-            $data[$stationName] = $stock;
-        }
 
         return $data;
     }

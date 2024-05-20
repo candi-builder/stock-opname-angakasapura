@@ -48,7 +48,7 @@
     <div class="d-flex flex-column">
     <h5 class="">histori stock bulan {{$monthName}} - {{Session::get('annualHistory') }}</h5>
     <p>total stok pada bulan ini :  {{$totalStock}}</p>
-    <a href="/report/stock/monthly/export_excel" class="btn btn-success my-3">EXPORT Excel</a>
+    <a href="/report/stock/monthly/export_excel" class="btn btn-success my-3">EXPORT EXCEL</a>
     </div>
     @if (session('success'))
                         <div class="alert alert-success" role="alert">

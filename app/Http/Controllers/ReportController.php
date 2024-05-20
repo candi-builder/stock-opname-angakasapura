@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DetailMonth;
 use App\Exports\MonthlyExport;
 use App\Models\MasterData;
 use App\Models\Region;
@@ -123,6 +124,11 @@ class ReportController extends Controller
     {
         return Excel::download(new MonthlyExport, 'monthly.xlsx');
     }
+
+    public function detailMonthlyExportExcel($id)
+        {
+            return Excel::download(new DetailMonth($id), 'month_detail.xlsx');
+        }
 
     public function filterData(Request $request)
     {
@@ -326,7 +332,7 @@ class ReportController extends Controller
             ->where('reports.master_data', $id)
             ->whereMonth('reports.reporting_date', $tanggal)
             ->paginate(25);
-        $itemname = MasterData::findOrFail($id)->first();
+        $itemname = MasterData::findOrFail($id);
         $monthName =  Carbon::create()->month($tanggal)->monthName;
         return view('content.stock.detail.monthly', compact('detailStock', 'tanggal', 'jumlah', 'itemname','monthName'))
             ->with('i');

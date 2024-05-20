@@ -54,6 +54,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/stock/items', [ReportController::class, 'showStockPerItem'])->name("stock-items");
   Route::get('/report/stock/monthly', [ReportController::class, 'showHistoriStockMonthly'])->name("stock-monthly");
   Route::get('/report/stock/monthly/export_excel', [ReportController::class, 'monthlyExportExcel'])->name("stock-monthly-export-excel");
+  Route::get('/report/stock/detail/monthly/export_excel/{id}', [ReportController::class, 'detailMonthlyExportExcel'])->name("stock-detail-monthly-export-excel");
   Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");
   Route::post('/filterData', [ReportController::class, 'filterData'])->name("filter-data-stock");
   Route::get('/stock/detail/today/{id}/{tanggal}/{jumlah}', [ReportController::class, 'detailReport'])->name("detail-stock-today");
