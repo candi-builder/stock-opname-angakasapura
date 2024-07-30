@@ -10,6 +10,7 @@ use App\Models\Report;
 use App\Models\Station;
 use App\Models\Stock;
 use App\Models\TStock;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class ReportController extends Controller
             ->where('users.username', $userSession->username)
             ->paginate(25);
         $md = MasterData::select('id', 'no_article', 'description')->get();
-        return view('content.report.list', compact('dataReport', 'md', 'stationUser', 'regionUser'))
+        $batasJumlahStock = 200000;
+        return view('content.report.list', compact('dataReport', 'batasJumlahStock', 'md', 'stationUser', 'regionUser'))
             ->with('i');
     }
 
@@ -44,8 +46,9 @@ class ReportController extends Controller
             ->join('uoms', 'md.uom', '=', 'uoms.id')
             ->selectRaw('md.id as master_data_id, md.no_article, md.description,users.username, mg.name as mgname,reports.reporting_date, uoms.name as uomname, reports.jumlah')
             ->paginate(25);
+        $batasJumlahStock = 200000;
 
-        return view('content.report.admin', compact('showDataReport'))
+        return view('content.report.admin', compact('showDataReport', 'batasJumlahStock'))
             ->with('i');
 
     }
@@ -115,7 +118,7 @@ class ReportController extends Controller
             ->select('md.no_article','md.id as mdid', 'mg.name as mgname', 'md.description', 'uoms.name as uomname', 'stock', 'bulan','tahun')
             ->paginate(25);
             // dd('month',$month,'year',$year,'showdata',$showDataStock);
-        
+
         return view('content.stock.monthly', compact('showDataStock', 'bulan', 'year', 'totalStock'))
             ->with('i');
     }
@@ -338,5 +341,7 @@ class ReportController extends Controller
             ->with('i');
     }
 
-
+    public function formAddBatasanStock(){
+      return view('content.report.form-add-batasan-stock');
+    }
 }

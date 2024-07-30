@@ -47,6 +47,8 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
   Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
   Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");
+  Route::get('/report/add-batasan-stock', [ReportController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock");
+  Route::post('`/report/process-add-batasan-stock`', [ReportController::class, 'processAddBatasanStock'])->name("process-add-item-batasan-stock");
 //   Route::get('/report/list', [ReportController::class, 'search'])->name("get-list-report");
 
   //stock

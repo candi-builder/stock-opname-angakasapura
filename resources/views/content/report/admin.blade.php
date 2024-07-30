@@ -3,13 +3,18 @@
 @section('title', 'data report')
 
 @section('content')
-<h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Data Report
-</h4>
+<div class="py-3 mb-4 d-flex">
+  <h4 class="text-muted fw-light p-2 flex-fill">
+    Data Report
+  </h4>
+  <a href="{{ route('add-report-batasan-stock')}}">
+    <button class="btn btn-primary" type="submit">Buat Batasan Stock</button>
+  </a>
+</div>
 
 <!-- Basic Bootstrap Table -->
 
-<!--/ Table within card -->   
+<!--/ Table within card -->
 <!-- Responsive Table -->
 <div class="card">
   <div class="card-header d-flex justify-content-between">
@@ -41,6 +46,7 @@
           <th>UOM</th>
           <th>user</th>
           <th>grand total</th>
+          <th>batas jumlah stock</th>
           <th>tanggal</th>
         </tr>
       </thead>
@@ -54,12 +60,13 @@
           <td>{{ $report->uomname}}</td>
           <td>{{ $report->username}}</td>
           <td>{{ $report->jumlah}}</td>
+          <td>{{ $batasJumlahStock}}</td>
           <td>{{ $report->reporting_date}}</td>
 
           </td>
         </tr>
         @endforeach
-    
+
       </tbody>
     </table>
       <!-- Pagination -->
