@@ -11,7 +11,6 @@
       "name": "Data Stock",
       "icon": "menu-icon tf-icons bx bx-data",
       "slug": "data-stock",
-      
       "submenu": [
         {
           "url": "/report/stock/items",
@@ -36,12 +35,11 @@
       "icon": "menu-icon tf-icons bx bx-bar-chart-alt-2",
       "slug": "dashboard-analytics"
     },
-   
     {
       "url": "/item/list",
       "name": "Master Data",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "get-list-item",     
+      "slug": "get-list-item",
       "submenu": [
         {
           "url": "/item/list",
@@ -75,6 +73,12 @@
       "name": "Management User",
       "icon": "menu-icon tf-icons bx bx-group",
       "slug": "get-list-user"
+    },
+    {
+      "url": "/batasan_stock",
+      "name": "Batasan Stock",
+      "icon": "menu-icon tf-icons bx bx-group",
+      "slug": "get-list-batsan_stock"
     }
   ]
 }

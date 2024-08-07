@@ -1,7 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 @php
       $isAdmin = session('userSession')->role;
-      $menuToShow = $isAdmin == 'superadmin' ?  array_slice($menuData[0]->menu, 1,4) : array_filter($menuData[0]->menu, function($item) {
+      $menuToShow = $isAdmin == 'superadmin' ?  array_slice($menuData[0]->menu, 1,5) : array_filter($menuData[0]->menu, function($item) {
     return $item->slug === 'get-list-report' || $item->slug === 'get-list-item';
 });
     @endphp

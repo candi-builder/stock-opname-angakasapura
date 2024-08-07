@@ -20,7 +20,6 @@ class StationController extends Controller
     return view('content.station.form-add');
   }
 
-  // memasukkan data ke dalam database
   public function processAdd(Request $request)
   {
     // validate form
@@ -69,7 +68,7 @@ class StationController extends Controller
       $item->save();
       return redirect()->route('get-list-station')->with('success','Berhasil mengubah data station');
     } catch (\Exception $e) {
-        dd($e);  
+        dd($e);
         return redirect()->route('get-list-station')->with('error','terjadi kesalahan');
       }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth;
+use App\Http\Controllers\BatasanStockStationController;
 use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MaterialGroupController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\UomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
-
 
 // Main Page Route
 
@@ -47,8 +47,6 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
   Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
   Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");
-  Route::get('/report/add-batasan-stock', [ReportController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock");
-  Route::post('`/report/process-add-batasan-stock`', [ReportController::class, 'processAddBatasanStock'])->name("process-add-item-batasan-stock");
 //   Route::get('/report/list', [ReportController::class, 'search'])->name("get-list-report");
 
   //stock
@@ -93,4 +91,9 @@ Route::middleware('checkLogin')->group(function () {
   Route::post('/material-group/process-edit', [MaterialGroupController::class, 'processEdit'])->name('process-edit-material-group');
   Route::delete('/material-group/delete/{id}', [MaterialGroupController::class, 'processDelete'])->name('delete-material-group');
   Route::get('/material-group/list', [MaterialGroupController::class, 'search'])->name('get-list-material-group');
+
+  // batasan-stock
+  Route::get('/batasan_stock', [BatasanStockStationController::class, 'index'])->name("list-batasan-stock-station");
+  Route::get('/batasan-stock/form-add-batasan_stock', [BatasanStockStationController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock-station");
+  Route::post('`/process-add-batasan-stock`', [BatasanStockStationController::class, 'processAddBatasanStock'])->name("process-add-item-batasan-stock-station");
 });

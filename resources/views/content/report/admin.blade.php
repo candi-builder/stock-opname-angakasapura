@@ -7,9 +7,6 @@
   <h4 class="text-muted fw-light p-2 flex-fill">
     Data Report
   </h4>
-  <a href="{{ route('add-report-batasan-stock')}}">
-    <button class="btn btn-primary" type="submit">Buat Batasan Stock</button>
-  </a>
 </div>
 
 <!-- Basic Bootstrap Table -->

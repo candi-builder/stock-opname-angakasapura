@@ -340,8 +340,4 @@ class ReportController extends Controller
         return view('content.stock.detail.monthly', compact('detailStock', 'tanggal', 'jumlah', 'itemname','monthName'))
             ->with('i');
     }
-
-    public function formAddBatasanStock(){
-      return view('content.report.form-add-batasan-stock');
-    }
 }
