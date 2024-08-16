@@ -23,15 +23,15 @@
               {{ session('error') }}
           </div>
       @endif
-        <form action="{{route('process-add-item-batasan-stock-station')}}" method="POST" >
+        <form action="{{route('process-add-batasan-stock-station')}}" method="POST" >
         @csrf
         <div class="mb-3">
           <label  class="form-label" for="basic-default-fullname">User berdasarkan Station</label>
           <select  class="form-control selectdua" name="station">
           <option disabled value="-">Station</option>
-            @foreach($station as $item)
+            {{-- @foreach($station as $item)
             <option value="{{$item->id}}">{{$item->no_article}} - {{$item->description}}</option>
-            @endforeach
+            @endforeach --}}
           </select>
           {{-- @error('uom')
             <div class="text-danger">{{ $message }}</div>
@@ -56,7 +56,7 @@
             <div class="text-danger">{{ $message }}</div>
           @enderror --}}
         </div>
-          <a href="{{route('get-list-report-admin')}}" class="btn btn-outline-primary">Batal</a>
+          <a href="{{route('list-batasan-stock-station')}}" class="btn btn-outline-primary">Batal</a>
           <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
       </div>

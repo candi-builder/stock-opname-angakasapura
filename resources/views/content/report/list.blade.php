@@ -37,7 +37,7 @@
               <option value="{{$item->id}}">{{$item->no_article}} - {{$item->description}}</option>
               @endforeach
             </select>
-            @error('uom')
+            @error('item')
               <div class="text-danger">{{ $message }}</div>
             @enderror
           </div>
@@ -48,8 +48,8 @@
              <div class="text-danger">{{ $message }}</div>
            @enderror
           </div>
-         
-          
+
+
           <!-- <a href="{{route('get-list-item')}}" class="btn btn-outline-primary">Batal</a> -->
           <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
@@ -106,7 +106,7 @@
             <td>{{ $regionUser->name}}</td>
           </tr>
           @endforeach
-      
+
         </tbody>
       </table>
         <!-- Pagination -->
