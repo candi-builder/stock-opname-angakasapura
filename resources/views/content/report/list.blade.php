@@ -86,6 +86,7 @@
             <th>UOM</th>
             <th>tanggal pelaporan</th>
             <th>jumlah</th>
+            <th>batasan jumlah stock</th>
             <th>reporter</th>
             <th>station</th>
             <th>region</th>
@@ -101,6 +102,7 @@
             <td>{{ $report->uomname}}</td>
             <td>{{ $report->reporting_date}}</td>
             <td>{{ $report->jumlah}}</td>
+            <td>{{ $report->batasan}}</td>
             <td>{{ $report->username}}</td>
             <td>{{ $stationUser->name}}</td>
             <td>{{ $regionUser->name}}</td>

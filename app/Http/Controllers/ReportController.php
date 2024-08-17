@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Exports\DetailMonth;
 use App\Exports\MonthlyExport;
 use App\Models\MasterData;
-use App\Models\Region;
 use App\Models\Report;
-use App\Models\Station;
 use App\Models\Stock;
 use App\Models\TStock;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -28,12 +25,12 @@ class ReportController extends Controller
             ->join('master_data as md', 'reports.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->select('md.no_article', 'mg.name as mgname', 'md.description', 'uoms.name as uomname', 'users.username', 'reports.reporting_date', 'reports.jumlah')
+            ->join('batasan_stock_stations', 'md.id', '=', 'batasan_stock_stations.item_id')
+            ->select('md.no_article', 'mg.name as mgname', 'md.description', 'uoms.name as uomname', 'users.username', 'reports.reporting_date', 'reports.jumlah', 'batasan_stock_stations.batasan')
             ->where('users.username', $userSession->username)
             ->paginate(25);
         $md = MasterData::select('id', 'no_article', 'description')->get();
-        $batasJumlahStock = 200000;
-        return view('content.report.list', compact('dataReport', 'batasJumlahStock', 'md', 'stationUser', 'regionUser'))
+        return view('content.report.list', compact('dataReport', 'md', 'stationUser', 'regionUser'))
             ->with('i');
     }
 
@@ -44,11 +41,10 @@ class ReportController extends Controller
             ->join('master_data as md', 'reports.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
             ->join('uoms', 'md.uom', '=', 'uoms.id')
-            ->selectRaw('md.id as master_data_id, md.no_article, md.description,users.username, mg.name as mgname,reports.reporting_date, uoms.name as uomname, reports.jumlah')
+            ->join('batasan_stock_stations', 'md.id', '=', 'batasan_stock_stations.item_id')
+            ->selectRaw('md.id as master_data_id, md.no_article, md.description,users.username, mg.name as mgname,reports.reporting_date, uoms.name as uomname, reports.jumlah, batasan_stock_stations.batasan')
             ->paginate(25);
-        $batasJumlahStock = 200000;
-
-        return view('content.report.admin', compact('showDataReport', 'batasJumlahStock'))
+        return view('content.report.admin', compact('showDataReport'))
             ->with('i');
 
     }

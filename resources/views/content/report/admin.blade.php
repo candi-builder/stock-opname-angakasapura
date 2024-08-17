@@ -57,7 +57,7 @@
           <td>{{ $report->uomname}}</td>
           <td>{{ $report->username}}</td>
           <td>{{ $report->jumlah}}</td>
-          <td>{{ $batasJumlahStock}}</td>
+          <td>{{ $report->batasan}}</td>
           <td>{{ $report->reporting_date}}</td>
 
           </td>
