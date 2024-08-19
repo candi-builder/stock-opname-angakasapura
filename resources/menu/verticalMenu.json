@@ -79,6 +79,12 @@
       "name": "Batasan Stock",
       "icon": "menu-icon tf-icons bx bx-group",
       "slug": "get-list-batsan_stock"
+    },
+    {
+      "url": "/chartjs",
+      "name": "Diagram Upload User",
+      "icon": "menu-icon tf-icons bx bx-group",
+      "slug": "get-list-diagram-user"
     }
   ]
 }

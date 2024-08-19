@@ -96,4 +96,8 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/batasan_stock', [BatasanStockStationController::class, 'index'])->name("list-batasan-stock-station");
   Route::get('/batasan-stock/form-add-batasan-stock', [BatasanStockStationController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock-station");
   Route::post('/batasan-stock/process-add-batasan-stock', [BatasanStockStationController::class, 'processAddBatasanStock'])->name("process-add-batasan-stock-station");
+
+  Route::get('/chartjs', function(){
+    return view('chartjs');
+  });
 });

@@ -1,3 +1,2 @@
-/*
-  Add custom scripts here
-*/
+import './mychart.js'
+

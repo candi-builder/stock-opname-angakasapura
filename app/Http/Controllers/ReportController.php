@@ -64,7 +64,7 @@ class ReportController extends Controller
         $userSession = Session::get('userSession');
         $totalStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
             ->where('tanggal', '=', $userSession->today)
-            ->sum('tstock.stock');
+            ->sum( 'tstock.stock');
         $showDataStock = Stock::join('t_stocks as tstock', 'stocks.id', '=', 'tstock.item_id')
             ->join('master_data as md', 'stocks.master_data', '=', 'md.id')
             ->join('material_groups as mg', 'md.material_group', '=', 'mg.id')
