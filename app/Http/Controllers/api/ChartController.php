@@ -14,11 +14,30 @@ class ChartController extends Controller
      */
     public function index()
     {
+      $bulan = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+      ];
+
       $dataChart = TStock::join('reports', 't_stocks.report_id', '=', 'reports.id')
     ->join('users', 'reports.reporter', '=', 'users.id')
     ->select('t_stocks.bulan', DB::raw('COUNT(users.username) as user_count'))
     ->groupBy('t_stocks.bulan')
-    ->get();
+    ->get()
+    ->map(function($item) use ($bulan) {
+      $item->bulan = $bulan[$item->bulan];
+      return $item;
+  });
 
         return response()->json([
           'status' => true,

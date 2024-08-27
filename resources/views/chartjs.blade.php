@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>Data Chart</h1>
-    <canvas id="dataChart" width="400" height="200"></canvas>
+    <canvas id="dataChart" width="100" height="50"></canvas>
 
     <script>
         // URL of the JSON data
