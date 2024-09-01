@@ -101,7 +101,5 @@ Route::middleware('checkLogin')->group(function () {
   Route::post('/batasan-stock/process-edit-batasan-stock',[BatasanStockStationController::class, 'processEditBatasanStock'])->name('process-edit-batasan-stock-station');
   Route::delete('/batasan-stock/delete/{id}', [BatasanStockStationController::class, 'processDelete'])->name('process-delete-batasan-stock-station');
 
-  Route::get('/chartjs', function(){
-    return view('chartjs');
-  });
+
 });

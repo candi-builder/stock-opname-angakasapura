@@ -13,6 +13,7 @@
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) }}" />
 <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Vendor Styles -->
 @yield('vendor-style')
 
