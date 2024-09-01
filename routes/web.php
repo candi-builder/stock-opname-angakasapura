@@ -31,7 +31,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::delete('/user/delete/{id}', [auth::class, 'deleteUser'])->name("delete-user");
   Route::post('/user/reset-pw/{id}', [auth::class, 'resetPw'])->name("reset-pw");
   Route::get('/user/logout', [auth::class, 'logout'])->name("logout");
-//   Route::get('/user/list', [auth::class, 'search'])->name("get-list-user");
+  //   Route::get('/user/list', [auth::class, 'search'])->name("get-list-user");
 
   //master-data
   Route::get('/item/list', [MasterDataController::class, 'index'])->name("get-list-item");
@@ -48,7 +48,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/add', [ReportController::class, 'formAdd'])->name("add-report");
   Route::post('/report/process-add', [ReportController::class, 'processAdd'])->name("process-add-report");
   Route::delete('/report/delete/{id}', [ReportController::class, 'processDelete'])->name("delete-report");
-//   Route::get('/report/list', [ReportController::class, 'search'])->name("get-list-report");
+  //   Route::get('/report/list', [ReportController::class, 'search'])->name("get-list-report");
 
   //stock
   Route::get('/report/stock/today', [ReportController::class, 'showHistoriStockToday'])->name("stock-today");
@@ -59,7 +59,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/report/stock/annual', [ReportController::class, 'showHistoriStockAnnual'])->name("stock-annual");
   Route::post('/filterData', [ReportController::class, 'filterData'])->name("filter-data-stock");
   Route::get('/stock/detail/today/{id}/{tanggal}/{jumlah}', [ReportController::class, 'detailReport'])->name("detail-stock-today");
-//   Route::get('/report/stock/today', [ReportController::class, 'search'])->name("stock-today");
+  //   Route::get('/report/stock/today', [ReportController::class, 'search'])->name("stock-today");
 
   // regions
   Route::get('/region/list', [RegionController::class, 'index'])->name("get-list-region");
@@ -67,7 +67,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/region/edit/{id}', [RegionController::class, 'formEdit'])->name("edit-region");
   Route::post('/region/process-edit', [RegionController::class, 'processEdit'])->name("process-edit-region");
   Route::delete('/region/delete/{id}', [RegionController::class, 'processDelete'])->name("delete-region");
-  Route::get('region/list', [RegionController::class,'search'])->name('get-list-region');
+  Route::get('region/list', [RegionController::class, 'search'])->name('get-list-region');
 
   // station
   Route::get('/station/list', [StationController::class, 'index'])->name("get-list-station");
@@ -83,7 +83,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/uom/edit/{id}', [UomController::class, 'formEdit'])->name("edit-uom");
   Route::post('/uom/process-edit', [UomController::class, 'processEdit'])->name("process-edit-uom");
   Route::delete('/uom/delete/{id}', [UomController::class, 'processDelete'])->name("delete-uom");
-  Route::get('/uom/list', [UomController::class,'search'])->name('get-list-uom');
+  Route::get('/uom/list', [UomController::class, 'search'])->name('get-list-uom');
 
   // material-goup
   Route::get('/material-group/list', [MaterialGroupController::class, 'index'])->name('get-list-material-group');
@@ -97,9 +97,7 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/batasan-stock', [BatasanStockStationController::class, 'index'])->name("list-batasan-stock-station");
   Route::get('/batasan-stock/form-add-batasan-stock', [BatasanStockStationController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock-station");
   Route::post('/batasan-stock/process-add-batasan-stock', [BatasanStockStationController::class, 'processAddBatasanStock'])->name("process-add-batasan-stock-station");
-  Route::get('/batasan-stock/form-edit-batasan-stock/{id}',[BatasanStockStationController::class, 'formEditBatasanStock'])->name('form-edit-batasan-stock-station');
-  Route::post('/batasan-stock/process-edit-batasan-stock',[BatasanStockStationController::class, 'processEditBatasanStock'])->name('process-edit-batasan-stock-station');
+  Route::get('/batasan-stock/form-edit-batasan-stock/{id}', [BatasanStockStationController::class, 'formEditBatasanStock'])->name('form-edit-batasan-stock-station');
+  Route::post('/batasan-stock/process-edit-batasan-stock', [BatasanStockStationController::class, 'processEditBatasanStock'])->name('process-edit-batasan-stock-station');
   Route::delete('/batasan-stock/delete/{id}', [BatasanStockStationController::class, 'processDelete'])->name('process-delete-batasan-stock-station');
-
-
 });

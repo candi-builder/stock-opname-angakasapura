@@ -27,24 +27,18 @@
         @csrf
         <div class="mb-3">
           <label  class="form-label" for="basic-default-fullname">User berdasarkan Station</label>
-          <select  class="form-control selectdua" name="userStations" disabled>
-          <option disabled value="-">Station</option>
-            @foreach($userStations as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
-            @endforeach
-          </select>
+          <input  class="form-control" value="{{$showDataBatasanStockStation->name}}" name="userStations" readonly>
+          </input>
+          <input  class="form-control" value="{{$showDataBatasanStockStation->id}}" name="id" hidden>
+        </input>
           @error('userStation')
             <div class="text-danger">{{ $message }}</div>
           @enderror
         </div>
         <div class="mb-3">
           <label  class="form-label" for="basic-default-fullname">Item</label>
-          <select  class="form-control selectdua" name="item" >
-          <option disabled value="-">Item</option>
-            @foreach($md as $item)
-            <option value="{{$item->id}}">{{$item->no_article}} - {{$item->description}}</option>
-            @endforeach
-          </select>
+          <input  class="form-control"  value="{{$showDataBatasanStockStation->description}}" name="item" readonly >
+          </input>
           @error('uom')
             <div class="text-danger">{{ $message }}</div>
           @enderror
