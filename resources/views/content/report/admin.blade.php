@@ -3,9 +3,9 @@
 @section('title', 'data report')
 
 @section('content')
-<div class="py-3 mb-4 d-flex">
-  <h4 class="text-muted fw-light p-2 flex-fill">
-    Data Report
+<div class="py-3  d-flex">
+  <h4 class=" fw-light p-2 flex-fill">
+    chart user yg sudah upload setiap bulan nya
   </h4>
 </div>
 
@@ -13,6 +13,7 @@
 
 <!--/ Table within card -->
 <!-- Responsive Table -->
+<canvas id="dataChart" width="100" height="50"></canvas>
 <div class="card">
   <div class="card-header d-flex justify-content-between">
     <h5 class="">histori report</h5>
@@ -74,5 +75,56 @@
   </div>
 
 </div>
+<script>
+  
+        const url = 'http://127.0.0.1:8001/api/apiChart'; 
+
+        function fetchData() {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    createChart(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function createChart(data) {
+            const ctx = document.getElementById('dataChart').getContext('2d');
+
+            const labels = data.data.countPerMonth.map(item => `Bulan ${item.bulan}`);
+            const userCounts = data.data.countPerMonth.map(item => item.user_count)
+            console.log(labels.map(item=>item));
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Jumlah pengguna yang mengirim bulan ini',
+                        data: userCounts,
+                        borderWidth: 1,
+                        barPercentage: 0.5,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: data.data.totalUser
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call the function to fetch and display the data in chart
+        fetchData();
+    </script>
 <!--/ Responsive Table -->
 @endsection

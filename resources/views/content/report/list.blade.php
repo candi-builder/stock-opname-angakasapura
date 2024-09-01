@@ -42,7 +42,7 @@
             @enderror
           </div>
           <div class="mb-3">
-            <label class="form-label" for="description">jumlah</label>
+            <label class="form-label"  for="description">jumlah</label>
             <input type="number" class="form-control" name="jumlah" placeholder="jumlah" />
             @error('jumlah')
              <div class="text-danger">{{ $message }}</div>

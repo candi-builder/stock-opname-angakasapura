@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Station;
 use App\Models\TStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
+
+      $tahun =  date('Y');
       $bulan = [
         1 => 'Januari',
         2 => 'Februari',
@@ -32,17 +33,24 @@ class ChartController extends Controller
       $dataChart = TStock::join('reports', 't_stocks.report_id', '=', 'reports.id')
     ->join('users', 'reports.reporter', '=', 'users.id')
     ->select('t_stocks.bulan', DB::raw('COUNT(users.username) as user_count'))
+    ->where('t_stocks.tahun', $tahun) 
     ->groupBy('t_stocks.bulan')
     ->get()
     ->map(function($item) use ($bulan) {
       $item->bulan = $bulan[$item->bulan];
       return $item;
+
   });
+  $countUser = Station::count();
+
 
         return response()->json([
           'status' => true,
           'pesan' => 'Data ditemukan',
-          'data' => $dataChart,
+          'data' => [
+            'countPerMonth' => $dataChart,
+            'totalUser' => $countUser
+        ],
         ],200);
     }
 
