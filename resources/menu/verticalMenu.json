@@ -75,7 +75,7 @@
       "slug": "get-list-user"
     },
     {
-      "url": "/batasan_stock",
+      "url": "/batasan-stock",
       "name": "Batasan Stock",
       "icon": "menu-icon tf-icons bx bx-group",
       "slug": "get-list-batsan_stock"
