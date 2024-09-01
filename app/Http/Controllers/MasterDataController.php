@@ -23,7 +23,7 @@ class MasterDataController extends Controller
             $uoms = Uom::get();
         return view('content.item.list', compact('dataItems','mg','uoms'))
             ->with('i');
-        
+
     }
 
     public function formAdd()
@@ -104,8 +104,7 @@ class MasterDataController extends Controller
         try {
             $item = MasterData::where("no_article",$request->input('no_article'));
             if (!$item) {
-            return redirect()->route('edit-item')->with('success', 'item tidak ditemukan');
-                
+            return redirect()->route('edit-item')->with('error', 'item tidak ditemukan');
             }
             $item->update([
                 'description' => $request->input('description'),
@@ -122,7 +121,7 @@ class MasterDataController extends Controller
     public function processDelete(Request $request,$id){
         try {
             $deleted = MasterData::destroy($id);
-        
+
             if ($deleted) {
                 return redirect()->route('get-list-item')->with('success', 'Berhasil menghapus item');
             } else {

@@ -79,15 +79,26 @@
           <th>Station</th>
           <th>Item</th>
           <th>Batasan</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach($showDataBatasanStockStation as $report)
+        @foreach($showDataBatasanStockStation as $data)
         <tr>
           <td>{{ ++$i}}</td>
-          <td>{{ $report->name}}</td>
-          <td>{{ $report->description}}</td>
-          <td>{{ $report->batasan}}</td>
+          <td>{{ $data->name}}</td>
+          <td>{{ $data->description}}</td>
+          <td>{{ $data->batasan}}</td>
+          <td class="d-flex gap-2">
+            <a href="{{ route('form-edit-batasan-stock-station', $data->id) }}">
+                <button type="submit" class="btn btn-success">Ubah</button>
+            </a>
+            <form method="POST" action="{{ route('process-delete-batasan-stock-station', $data->id) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+            </form>
+            </td>
         </tr>
         @endforeach
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\UomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
+use App\Models\BatasanStockStation;
 
 // Main Page Route
 
@@ -93,9 +94,12 @@ Route::middleware('checkLogin')->group(function () {
   Route::get('/material-group/list', [MaterialGroupController::class, 'search'])->name('get-list-material-group');
 
   // batasan-stock
-  Route::get('/batasan_stock', [BatasanStockStationController::class, 'index'])->name("list-batasan-stock-station");
+  Route::get('/batasan-stock', [BatasanStockStationController::class, 'index'])->name("list-batasan-stock-station");
   Route::get('/batasan-stock/form-add-batasan-stock', [BatasanStockStationController::class, 'formAddBatasanStock'])->name("add-report-batasan-stock-station");
   Route::post('/batasan-stock/process-add-batasan-stock', [BatasanStockStationController::class, 'processAddBatasanStock'])->name("process-add-batasan-stock-station");
+  Route::get('/batasan-stock/form-edit-batasan-stock/{id}',[BatasanStockStationController::class, 'formEditBatasanStock'])->name('form-edit-batasan-stock-station');
+  Route::post('/batasan-stock/process-edit-batasan-stock',[BatasanStockStationController::class, 'processEditBatasanStock'])->name('process-edit-batasan-stock-station');
+  Route::delete('/batasan-stock/delete/{id}', [BatasanStockStationController::class, 'processDelete'])->name('process-delete-batasan-stock-station');
 
 
 });
